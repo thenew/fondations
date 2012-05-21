@@ -1,0 +1,199 @@
+/*  --------------------------------------------------
+  = Fon debug toolbar
+  -------------------------------------------------- */
+
+.fon_debug_toolbar {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-user-select: none;
+  -moz-user-select:    none;
+  -ms-user-select:     none;
+  -o-user-select:      none;
+  user-select:         none;
+}
+.fon_debug_toolbar .handler {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: url(assets/img/fondations/handler.gif) center center no-repeat;
+  /*overflow: hidden;*/
+  cursor: s-resize;
+  clear: both;
+}
+.fon_debug_toolbar .handler:hover {
+  -webkit-box-shadow: 0 4px 6px rgba(0,0,0,0.2) inset;
+  -moz-box-shadow:    0 4px 6px rgba(0,0,0,0.2) inset;
+  -ms-box-shadow:     0 4px 6px rgba(0,0,0,0.2) inset;
+  -o-box-shadow:      0 4px 6px rgba(0,0,0,0.2) inset;
+  box-shadow:         0 4px 6px rgba(0,0,0,0.2) inset;
+}
+.fon_debug_toolbar .options {
+  height: 30px;
+  width: 100%;
+  margin: 0;
+  list-style: none;
+  border-top: 1px solid #D7D7D7;
+  background-color: #F7F7F7;
+  -webkit-box-shadow: 0 5px 25px rgba(0,0,0,.1) inset;
+  -moz-box-shadow:    0 5px 25px rgba(0,0,0,.1) inset;
+  -ms-box-shadow:     0 5px 25px rgba(0,0,0,.1) inset;
+  -o-box-shadow:      0 5px 25px rgba(0,0,0,.1) inset;
+  box-shadow:         0 5px 25px rgba(0,0,0,.1) inset;
+}
+.fon_debug_toolbar .options > li {
+  float: left;
+  padding: 0 10px 0 35px;
+  line-height: 30px;
+  border-right: 1px solid #bbb;
+  background: url(assets/img/fondations/icons.png) no-repeat;
+}
+.fon_debug_toolbar .options > li:last-child {border: 0;}
+
+.fon_debug_toolbar .options > li:hover {
+  color: #eee;
+  background-color: #dc3522;
+  background-color: rgba(220,53,34,.9);
+}
+.fon_debug_toolbar .options > li:hover a {
+  color: #eee;
+}
+.fon_debug_toolbar .options .is_link {
+  padding: 0;
+}
+.fon_debug_toolbar .options a {
+  display: block;
+  height: 100%;
+  padding: 0 10px 0 35px;
+  color: #dc3522;
+  text-decoration: none;
+}
+.fon_debug_toolbar .options .logo {background-position: 5px top;}
+.fon_debug_toolbar .options .template {background-position: 5px -30px;}
+.fon_debug_toolbar .options .queries {background-position: 5px -60px;}
+.fon_debug_toolbar .options .timer {background-position: 5px -90px;}
+.fon_debug_toolbar .options .user {background-position: 5px -120px;}
+
+
+/*Search*/
+.fon_debug_toolbar .options .search {
+  float: right;
+  padding: 0;
+  background: none;
+}
+.fon_debug_toolbar .codex-search {
+  height: 30px;
+  margin: 0;
+}
+#fon_dbar_search {
+  height: 100%;
+  padding: 0 10px 0 35px;
+  margin: 0;
+  background: url(../../../wp-includes/images/admin-bar-sprite.png) no-repeat;
+  background-position: 7px -99px;
+  border: none;
+  border-left: 1px solid #bbb;
+  -webkit-box-shadow: none;
+  -moz-box-shadow:    none;
+  -ms-box-shadow:     none;
+  -o-box-shadow:      none;
+  box-shadow:         none;
+  -webkit-border-radius: 0;
+  -moz-border-radius:    0;
+  -ms-border-radius:     0;
+  -o-border-radius:      0;
+  border-radius:         0;
+}
+#fon_dbar_search:focus,
+#fon_dbar_search:hover {
+  color: #eee;
+  background-color: #dc3522;
+  background-color: rgba(220,53,34,.9);
+  background-position: 7px -72px;
+  outline: none;
+}
+
+/*Fon debug log*/
+.fon_debug_log {
+  position: relative;
+  height: 50px;
+  padding: 5px;
+  overflow-y: scroll;
+  background: #1e262b;
+  -webkit-box-shadow: 0 5px 40px rgba(0,0,0,.6) inset;
+  -moz-box-shadow:    0 5px 40px rgba(0,0,0,.6) inset;
+  -ms-box-shadow:     0 5px 40px rgba(0,0,0,.6) inset;
+  -o-box-shadow:      0 5px 40px rgba(0,0,0,.6) inset;
+  box-shadow:         0 5px 40px rgba(0,0,0,.6) inset;
+}
+.fon_debug_log code {
+  color: #E6FFF1;
+  text-shadow: 0 0 4px rgba(0,255,102,.4);
+  background: none;
+  border: none;
+}
+.fon_debug_log .actions {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+}
+.fon_debug_log .actions > * {opacity:0;}
+.fon_debug_log:hover .actions > * {opacity:.6;}
+.fon_debug_log .actions .delete:hover,
+.fon_debug_log .actions .display:hover {opacity:1;}
+.fon_debug_log .actions .delete {
+  margin-bottom: 7px;
+}
+.fon_debug_log .actions .display {
+  position: absolute;
+  right: 0;
+}
+
+ol.linenums {
+  margin: 0 0 0 33px; /* IE indents via margin-left */
+} 
+ol.linenums li {
+  padding-left: 12px;
+  line-height: 18px;
+  -webkit-user-select: text;
+  -moz-user-select:    text;
+  -ms-user-select:     text;
+  -o-user-select:      text;
+  user-select:         text;
+}
+.fon_debug_log code li span {
+  color: rgba(230,255,241,.5);
+  text-shadow: 0 0 2px rgba(255,255,255,.2);
+}
+.fon_debug_log .fatal-error {
+  text-shadow: 0 0 2px #dc3522;
+}
+
+/*  --------------------------------------------------
+  = Transitions
+  -------------------------------------------------- */
+.fon_debug_toolbar .codex-search input,
+.fon_debug_toolbar .options > li,
+.fon_debug_toolbar a {
+  -webkit-transition: color .1s ease-in-out, background-color .1s ease-in-out;
+  -moz-transition:    color .1s ease-in-out, background-color .1s ease-in-out;
+  -o-transition:      color .1s ease-in-out, background-color .1s ease-in-out;
+  transition:         color .1s ease-in-out, background-color .1s ease-in-out;
+}
+.fon_debug_log .actions > * {
+  -webkit-transition: opacity .2s ease-in-out;
+  -moz-transition:    opacity .2s ease-in-out;
+  -o-transition:      opacity .2s ease-in-out;
+  transition:         opacity .2s ease-in-out;
+}
+.fon_debug_toolbar .handler {
+  -webkit-transition: box-shadow .2s ease-in-out;
+  -moz-transition:    box-shadow .2s ease-in-out;
+  -o-transition:      box-shadow .2s ease-in-out;
+  transition:         box-shadow .2s ease-in-out;
+}

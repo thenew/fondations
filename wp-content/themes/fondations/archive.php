@@ -1,0 +1,1 @@
+<?php require(TEMPLATEPATH'./tpl/page.php');
