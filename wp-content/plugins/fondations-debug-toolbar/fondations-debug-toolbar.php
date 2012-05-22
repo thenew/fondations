@@ -22,35 +22,33 @@ define('FONBAR_CURRENT_USER_CAN','manage_options');
 // plugin id
 define('FONBAR_PLUGIN_ID', 'fondations-debug-toolbar');
 
+/**
+ * Init
+ */
 
-if ( is_admin() ) {
-  
-  add_action('admin_menu', 'fonbar_create_menu');
-  function fonbar_create_menu() {
-    // menu top level
-    $page_title = 'Page Inception';
-    $menu_title = 'Inception';
-    $capability = INCEPTION_CURRENT_USER_CAN;
-    $menu_slug = INCEPTION_PLUGIN_ID;
-    $function = 'inception_main';
-    // $icon = INCEPTION_BASENAME_PLUGIN_PATH.'/includes/images/icon.png';
-    $rank = 3;
-    $inception_plugin_page = add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function, $icon, $rank);
+if (!is_admin()) {
+    require_once( dirname(__FILE__).'/functions.php');
+  add_action('init', 'fonbar_CSS' );
+  add_action('init', 'fonbar_scripts' );
+}
 
-    add_action('admin_head-'.$inception_plugin_page, 'inception_CSS' );
-    add_action('admin_print_styles-'.$inception_plugin_page, 'inception_scripts' );
-  }
+function fonbar_CSS() {
+  $url = FONBAR_BASENAME_PLUGIN_PATH.'/assets/css/fondations-debug-toolbar.css';
+  echo "<link href='$url' rel='stylesheet' type='text/css' />";
+} 
 
-  function fonbar_scripts() {
-    // wp_enqueue_script( 'scripts', INCEPTION_BASENAME_PLUGIN_PATH.'/includes/js/scripts.js', array( 'farbtastic', 'jquery' ) ); 
-  }
-
-  function fonbar_CSS() {
-      // $url = INCEPTION_BASENAME_PLUGIN_PATH.'/includes/css/the-profile.css';
-      // echo "<link href='$url' rel='stylesheet' type='text/css' />";
-  } 
-
+function fonbar_scripts() {
+  wp_enqueue_script('resizableBox', FONBAR_BASENAME_PLUGIN_PATH.'/assets/js/resizableBox.js', '', 1.0, true);
+  wp_enqueue_script('fondations-debug-toolbar', FONBAR_BASENAME_PLUGIN_PATH.'/assets/js/fondations-debug-toolbar.js', array('resizableBox'), 1.0, true);
 }
 
 function fonbar_main() {
+
+}
+
+add_action('wp_footer', 'fonbar_render');
+function fonbar_render() {
+  if (!is_admin()){
+    fon_debug_toolbar();
+  }
 }
