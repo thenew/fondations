@@ -94,9 +94,9 @@ function fon_debug_toolbar(){
 <!--     <div id="fon_modal_queries" class="modal hide fade in">
       <div class="modal-body">
         <?php
-        global $wpdb;
-        if(SAVEQUERIES)
-          var_dump($wpdb->queries);
+        // global $wpdb;
+        // if(SAVEQUERIES)
+          // var_dump($wpdb->queries);
         ?>
       </div>
     </div> -->

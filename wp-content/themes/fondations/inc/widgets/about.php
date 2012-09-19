@@ -1,7 +1,9 @@
 <?php
-register_widget('about_Widget');
-class about_Widget extends WP_Widget {
-    function about_Widget(){parent::WP_Widget(false, 'About Widget');}
+// TODO BUG
+// [19-Sep-2012 09:34:41] PHP Fatal error:  Class 'about_widget' not found in /wp-includes/widgets.php on line 324
+
+class about_widget extends WP_Widget {
+    function about_widget(){parent::WP_Widget(false, 'About Widget');}
     function form($instance){}
     function update($new_instance, $old_instance) {return $new_instance;}
     function widget($args, $instance) {
@@ -31,7 +33,7 @@ class about_Widget extends WP_Widget {
             </p>
         </div>
     </div>
-    <?php //todo non fonctionnel ?>
+    <?php //TODO non fonctionnel ?>
     <a class="big-button-reseau" href="http://www.cifacom-reseau.com/membre/<?php echo get_option('tp_firstname').'-'.get_option('tp_name'); ?>">
         <strong>Voir mon profil</strong>
         sur cifacom-reseau.com
@@ -48,7 +50,3 @@ class about_Widget extends WP_Widget {
         echo $args['after_widget'];
     }
 }
-?>
-
-    
-    

@@ -1,25 +1,28 @@
 <?php
-// Check des mots clés contenus dans l'url, et lancement d'une recherche sur ce terme.
-$requete_recherche = str_replace(array('?', '/', '=', '-'), ' ', strip_tags($_SERVER['REQUEST_URI']));
+$param_404 = str_replace(array('?', '/', '=', '-'), ' ', strip_tags($_SERVER['REQUEST_URI']));
 
 get_header();
-echo '<div id="content">';
-echo '<h2>' . __('Page non trouv&eacute;e', 'fon_lang') . '</h2>';
-if (!empty($requete_recherche)) {
-    query_posts(array(
-        'posts_per_page' => '5',
-        'post_type' => 'any',
-        's' => $requete_recherche
-    ));
-    if (have_posts()) :
-        echo '<p>' . __('Voici quelques résultats de recherche pour :', 'fon_lang') . $requete_recherche . '</p>';
-        while (have_posts()) : the_post();
-            get_template_part('loop', 'short');
-        endwhile;
-    endif;
-    wp_reset_query();
-}
-
+echo '<div class="page">';
+    echo '<h1>' . __('404 Page not found', 'fon_lang') . '</h1>';
+    if (!empty($param_404)) {
+        $args_404 = array(
+            // 'posts_per_page' => '5',
+            // 'post_type' => 'any',
+            's' => $param_404
+        ));
+        $q_404 = new WP_Query( $args_404 );
+        if (have_posts()) :
+            echo '<h2>'.$param_404.'</h2>';
+            echo '<ul>';
+                while ( $the_query->have_posts() ) : $the_query->the_post();
+                    echo '<li>';
+                    get_template_part('loop', 'short');
+                    echo '</li>';
+                endwhile;
+            echo '</ul>';
+        endif;
+        wp_reset_postdata();
+    }
 echo '</div>';
 get_sidebar();
 get_footer();

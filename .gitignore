@@ -13,6 +13,8 @@ wp-content/wp-cache-config.php
 wp-content/cache/*
 wp-content/cache/supercache/*
 wp-content/languages/
+wp-content/themes/twentyeleven
+wp-content/themes/twentyten
 sitemap.xml
 sitemap.xml.gz
 readme.html

@@ -1,4 +1,4 @@
-	<?php
+<?php
 // Custom post types
 
 $work = new Custom_Post_Type( 'Work' );

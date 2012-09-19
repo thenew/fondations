@@ -1,128 +1,145 @@
 /*  --------------------------------------------------
   = Messages
   -------------------------------------------------- */
+
 .fon_messages {
-  display: block;
-  width: 95%;
-  margin: 0 auto;
+    display: block;
+    width: 95%;
+    margin: 0 auto;
 }
+
 .fon_messages > li {
-  padding: 10px 10px 10px 10px;
-  margin-bottom:10px;
-  background-color: rgba(0,0,0,.2);
-  -webkit-border-radius: 3px;
-     -moz-border-radius: 3px;
-          border-radius: 3px;
+    margin-bottom: 10px;
+    padding: 10px 10px 10px 10px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: rgba(0,0,0,.2);
 }
+
 .fon_messages p {
-  display: block;
-  padding: 0px 0px 0px 20px;
-  font-size: 12px;
-  line-height: 14px;
+    display: block;
+    padding: 0 0 0 20px;
+    font-size: 12px;
+    line-height: 14px;
 }
-.error{
-  border:1px solid #bc5752;
+
+.error {
+    border: 1px solid #bc5752;
 }
+
 .success {
-  border: 1px solid #8BDC7A;
+    border: 1px solid #8BDC7A;
 }
+
 .error p {
-  color: #C4685A;
-  background: url(img/icons/error_icon.png) left 2px no-repeat;
+    color: #C4685A;
+    background: url(img/icons/error_icon.png) left 2px no-repeat;
 }
+
 .success p {
-  color: #75C95F;
-  background: url(img/icons/success_icon.png) left top no-repeat;
+    color: #75C95F;
+    background: url(img/icons/success_icon.png) left top no-repeat;
 }
 
 /*  --------------------------------------------------
   = Pagination
   http://cssdeck.com/item/105/css-pagination-styles
   -------------------------------------------------- */
+
 .fon-pagination li {
-  line-height: 25px;
-  font-weight: bold;
-  text-decoration: none;
-  -webkit-border-radius: 3px;
-  -moz-border-radius:    3px;
-  -ms-border-radius:     3px;
-  -o-border-radius:      3px;
-  border-radius:         3px;
-  -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset, 0 1px 3px rgba(0,0,0,.1);
-  -moz-box-shadow:    0 1px 0 rgba(255,255,255,.8) inset, 0 1px 3px rgba(0,0,0,.1);
-  -ms-box-shadow:     0 1px 0 rgba(255,255,255,.8) inset, 0 1px 3px rgba(0,0,0,.1);
-  -o-box-shadow:      0 1px 0 rgba(255,255,255,.8) inset, 0 1px 3px rgba(0,0,0,.1);
-  box-shadow:         0 1px 0 rgba(255,255,255,.8) inset, 0 1px 3px rgba(0,0,0,.1);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 25px;
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset,0 1px 3px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset,0 1px 3px rgba(0,0,0,.1);
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset,0 1px 3px rgba(0,0,0,.1);
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset,0 1px 3px rgba(0,0,0,.1);
+    -o-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset,0 1px 3px rgba(0,0,0,.1);
 }
+
 .fon-pagination li > * {
-  color: #717171;
-  text-shadow: 0px 1px 0px rgba(255,255,255, 1);
-  line-height: 25px;
-  background: #e9e9e9;
-  border: solid 1px #c0c0c0;
+    border: solid 1px #c0c0c0;
+    text-shadow: 0 1px 0 rgba(255,255,255,1);
+    line-height: 25px;
+    color: #717171;
+    background: #e9e9e9;
 }
+
 .fon-pagination a:hover {
-  text-decoration: none;
-  background: #fefefe;
-  background-color: #F0F0F0;
-  background-repeat: repeat-x;
-  background-image: -webkit-linear-gradient(top, #FEFEFE 0%,#F0F0F0 100%);
-  background-image:    -moz-linear-gradient(top, #FEFEFE 0%,#F0F0F0 100%);
-  background-image:     -ms-linear-gradient(top, #FEFEFE 0%,#F0F0F0 100%);
-  background-image:      -o-linear-gradient(top, #FEFEFE 0%,#F0F0F0 100%);
-  background-image:         linear-gradient(top, #FEFEFE 0%,#F0F0F0 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#F0F0F0));
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FEFEFE', endColorstr='#F0F0F0',GradientType=0 );
+    text-decoration: none;
+    background: #fefefe;
+    background-color: #F0F0F0;
+    background-image: -webkit-linear-gradient(top,#FEFEFE 0,#F0F0F0 100%);
+    background-image: -moz-linear-gradient(top,#FEFEFE 0,#F0F0F0 100%);
+    background-image: -ms-linear-gradient(top,#FEFEFE 0,#F0F0F0 100%);
+    background-image: -o-linear-gradient(top,#FEFEFE 0,#F0F0F0 100%);
+    background-image: linear-gradient(top,#FEFEFE 0,#F0F0F0 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#FEFEFE),color-stop(100%,#F0F0F0));
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FEFEFE', endColorstr='#F0F0F0',GradientType=0 );
 }
+
 .fon-pagination .current {
-  color: #f0f0f0;
-  text-shadow: 0px 0px 3px rgba(0,0,0, .5);
-  background: #616161;
-  border: none;
-  -webkit-box-shadow: 0 0 8px rgba(0,0,0,.5) inset, 0 1px 0 rgba(255,255,255,.2);
-  -moz-box-shadow:    0 0 8px rgba(0,0,0,.5) inset, 0 1px 0 rgba(255,255,255,.2);
-  -ms-box-shadow:     0 0 8px rgba(0,0,0,.5) inset, 0 1px 0 rgba(255,255,255,.2);
-  -o-box-shadow:      0 0 8px rgba(0,0,0,.5) inset, 0 1px 0 rgba(255,255,255,.2);
-  box-shadow:         0 0 8px rgba(0,0,0,.5) inset, 0 1px 0 rgba(255,255,255,.2);
+    border: none;
+    text-shadow: 0 0 3px rgba(0,0,0,.5);
+    color: #f0f0f0;
+    background: #616161;
+    -webkit-box-shadow: 0 0 8px rgba(0,0,0,.5) inset,0 1px 0 rgba(255,255,255,.2);
+    -moz-box-shadow: 0 0 8px rgba(0,0,0,.5) inset,0 1px 0 rgba(255,255,255,.2);
+    box-shadow: 0 0 8px rgba(0,0,0,.5) inset,0 1px 0 rgba(255,255,255,.2);
+    -ms-box-shadow: 0 0 8px rgba(0,0,0,.5) inset,0 1px 0 rgba(255,255,255,.2);
+    -o-box-shadow: 0 0 8px rgba(0,0,0,.5) inset,0 1px 0 rgba(255,255,255,.2);
 }
+
 /* Dark */
+
 .fon-pagination.dark li > * {
-  color: #feffff;
-  text-shadow: 0px 1px 0px rgba(0,0,0, .5);
-  border: solid 1px #32373b;
-  background: #3e4347;
-  box-shadow: inset 0px 1px 1px rgba(255,255,255, .1), 0px 1px 3px rgba(0,0,0, .1);
+    border: solid 1px #32373b;
+    text-shadow: 0 1px 0 rgba(0,0,0,.5);
+    color: #feffff;
+    background: #3e4347;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,.1) ,0 1px 3px rgba(0,0,0,.1);
 }
+
 .fon-pagination.dark a:hover {
-  background: #3d4f5d;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#547085), to(#3d4f5d));
-  background: -moz-linear-gradient(0% 0% 270deg,#547085, #3d4f5d);
+    background: #3d4f5d;
+    background: -webkit-gradient(linear,0 0,0 100%,from(#547085),to(#3d4f5d));
+    background: -moz-linear-gradient(0% 0 270deg,#547085,#3d4f5d);
 }
+
 .fon-pagination.dark .current {
-  background: #2f3237;
-  box-shadow: inset 0px 0px 8px rgba(0,0,0, .5), 0px 1px 0px rgba(255,255,255, .1);
+    background: #2f3237;
+    box-shadow: inset 0 0 8px rgba(0,0,0,.5) ,0 1px 0 rgba(255,255,255,.1);
 }
 
 /*  --------------------------------------------------
   = Divers
   -------------------------------------------------- */
+
 code {
-  padding: 2px 4px;
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: 12px;
-  color: #dc3522;
-  background-color: #F7F7F9;
-  border: 1px solid #E1E1E8;
-  -webkit-border-radius: 3px;
-  -moz-border-radius:    3px;
-  -ms-border-radius:     3px;
-  -o-border-radius:      3px;
-  border-radius:         3px;
+    padding: 2px 4px;
+    border: 1px solid #E1E1E8;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+    font-size: 12px;
+    color: #dc3522;
+    background-color: #F7F7F9;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
 }
 
 /*  --------------------------------------------------
   = Transitions
   -------------------------------------------------- */
+
 /*#fon_dbar_search,
 .fon_debug_toolbar .options > li,
 a {
@@ -144,11 +161,13 @@ a {
   transition:         box-shadow .2s ease-in-out;
 }
 */
+
 /*  --------------------------------------------------
   = Links
   -------------------------------------------------- */
+
 a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 /*  --------------------------------------------------
@@ -156,28 +175,33 @@ a:hover {
   -------------------------------------------------- */
 
 /* Micro clearfix hack */
+
 /* For modern browsers */
+
 .cf:before,
 .cf:after {
-    content:"";
-    display:table;
+    content: "";
+    display: table;
 }
 
 .cf:after {
-    clear:both;
+    clear: both;
 }
 
 /* For IE 6/7 (trigger hasLayout) */
+
 .cf {
-    zoom:1;
+    zoom: 1;
 }
 
 /* Selection */
-::-moz-selection{
-	background: #000;
-	color: #fff;
+
+::-moz-selection {
+    color: #fff;
+    background: #000;
 }
+
 ::selection {
-	background: #000;
-	color: #fff;
+    color: #fff;
+    background: #000;
 }
