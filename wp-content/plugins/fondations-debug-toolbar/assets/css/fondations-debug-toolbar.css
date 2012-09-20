@@ -1,4 +1,19 @@
 /*  --------------------------------------------------
+  = Commons
+  -------------------------------------------------- */
+pre,
+code {
+  margin: 0;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 12px;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre;
+  white-space: pre-wrap;
+  border: none;
+}
+
+/*  --------------------------------------------------
   = Fon debug toolbar
   -------------------------------------------------- */
 
@@ -27,16 +42,17 @@
   clear: both;
 }
 .fon_debug_toolbar .handler:hover {
-  -webkit-box-shadow: 0 4px 6px rgba(0,0,0,0.2) inset;
-  -moz-box-shadow:    0 4px 6px rgba(0,0,0,0.2) inset;
-  -ms-box-shadow:     0 4px 6px rgba(0,0,0,0.2) inset;
-  -o-box-shadow:      0 4px 6px rgba(0,0,0,0.2) inset;
-  box-shadow:         0 4px 6px rgba(0,0,0,0.2) inset;
+  -webkit-box-shadow: 0 4px 6px rgba(0,0,0,0.1) inset;
+  -moz-box-shadow:    0 4px 6px rgba(0,0,0,0.1) inset;
+  -ms-box-shadow:     0 4px 6px rgba(0,0,0,0.1) inset;
+  -o-box-shadow:      0 4px 6px rgba(0,0,0,0.1) inset;
+  box-shadow:         0 4px 6px rgba(0,0,0,0.1) inset;
 }
 .fon_debug_toolbar .options {
   height: 30px;
   width: 100%;
   margin: 0;
+  padding: 0;
   list-style: none;
   border-top: 1px solid #D7D7D7;
   background-color: #F7F7F7;
@@ -50,6 +66,9 @@
   float: left;
   padding: 0 10px 0 35px;
   line-height: 30px;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 12px;
+  color: #dc3522;
   border-right: 1px solid #bbb;
   background: url(../img/icons.png) no-repeat;
 }
@@ -79,6 +98,18 @@
 .fon_debug_toolbar .options .timer {background-position: 5px -90px;}
 .fon_debug_toolbar .options .user {background-position: 5px -120px;}
 
+.fon_debug_toolbar .options code {
+  padding: 2px 4px;
+  line-height: 30px;
+  color: #dc3522;
+  background-color: #F7F7F9;
+  border: 1px solid #E1E1E8;
+  -webkit-border-radius: 3px;
+  -moz-border-radius:    3px;
+  -ms-border-radius:     3px;
+  -o-border-radius:      3px;
+  border-radius:         3px;  
+}
 
 /*Search*/
 .fon_debug_toolbar .options .search {
@@ -131,11 +162,9 @@
   -o-box-shadow:      0 5px 40px rgba(0,0,0,.6) inset;
   box-shadow:         0 5px 40px rgba(0,0,0,.6) inset;
 }
-.fon_debug_log code {
+.fon_debug_log pre {
   color: #E6FFF1;
   text-shadow: 0 0 4px rgba(0,255,102,.4);
-  background: none;
-  border: none;
 }
 .fon_debug_log .actions {
   position: absolute;
@@ -155,18 +184,20 @@
 }
 
 ol.linenums {
-  margin: 0 0 0 33px; /* IE indents via margin-left */
+  padding: 0 0 0 25px;
+  margin: 0;
+  list-style: decimal;
 } 
 ol.linenums li {
-  padding-left: 12px;
   line-height: 18px;
+  color: #333;
   -webkit-user-select: text;
   -moz-user-select:    text;
   -ms-user-select:     text;
   -o-user-select:      text;
   user-select:         text;
 }
-.fon_debug_log code li span {
+.fon_debug_log li span {
   color: rgba(230,255,241,.5);
   text-shadow: 0 0 2px rgba(255,255,255,.2);
 }

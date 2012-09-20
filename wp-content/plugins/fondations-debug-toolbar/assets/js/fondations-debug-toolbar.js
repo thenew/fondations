@@ -1,19 +1,25 @@
 window.addEvent('domready',function(){
 
   // key S to search
-  var searchInput = document.getElementById('fon_dbar_search');
-  if (document.activeElement != searchInput){
-    document.addEvent('keydown', function(e){
-      if (e.key == 's' && document.activeElement != searchInput){
-        e.stop();
+  function keyControl(event){
+    var searchInput = document.getElementById('fon_dbar_search');
+    if (event.key == 's'){
+      // filter input field focused
+      // thanks to madrobby https://github.com/madrobby/keymaster/blob/master/keymaster.js
+      var tagName = (event.target || event.srcElement).tagName;
+      var filter = !(tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA');
+      if (filter){
+        event.stop();
+        // focus to our input
         searchInput.focus();
       }
-    });
+    }
   }
+  document.addEvent('keydown', keyControl, false);
+
 
   // resize debug log
-  if($('.fon_debug_log')){
-    console.log('toto : ');
+  if(document.getElementById('fon_debug_log')){
     var resizable_debug_bar = new resizableBox($$(".fon_debug_toolbar"), {
       handler: ".handler",
       modifiers: {x: false, y: true},

@@ -9,7 +9,7 @@ function fon_debug_toolbar(){
         <?php endif; ?>
         <li class="template"><code><?php echo fon_get_template(); ?></code></li>
         <li class="queries"><?php echo get_num_queries(); ?></li>
-        <li class="timer"><?php echo timer_stop().' s'; ?></li>
+        <li class="timer"><?php echo timer_stop($display = 0, $precision = 2).'s'; ?></li>
         <li class="is_link user">
           <?php 
           // TODO: absolute url or relative url for the redirect
@@ -73,7 +73,7 @@ function fon_debug_log(){
       $debug_log = file_get_contents($debug_file);
       preg_match_all("#PHP (Parse error|Fatal error|Notice|Warning):  (.+)\n#", $debug_log, $results);
       ?>
-      <div class="fon_debug_log">
+      <div class="fon_debug_log" id="fon_debug_log">
         <?php // Delete button ?>
         <div class="actions">
           <form name="fon_debug_log" class="delete" action="" method="post">
@@ -83,24 +83,22 @@ function fon_debug_log(){
           <?php // Trigger modal ?>
           <a href="#fon_modal_log" data-toggle="modal" class="btn display">Afficher logs</a>
         </div>
-        <code>
-          <ol class="linenums">
-          <?php // change order : from newest to oldest
-          $results[2] = array_reverse($results[2]);
-          $bug_n = '';
-          foreach ($results[2] as $key => $bug) {
-            // avoid duplication
-            if($bug_n != $bug){
-              $bug_n = $bug;
-              // add classes
-              $error_type = $results[1][$key];
-              $error_class = '';
-              $error_class = ('Fatal error' == $error_type)? 'fatal-error':'error-type';
-              echo '<li><span class="'.$error_class.'">'.$results[1][$key].'</span> '.$bug.'</li>';
-            }
-          } ?>
-          </ol>
-        </code>
+        <ol class="linenums">
+        <?php // change order : from newest to oldest
+        $results[2] = array_reverse($results[2]);
+        $bug_n = '';
+        foreach ($results[2] as $key => $bug) {
+          // avoid duplication
+          if($bug_n != $bug){
+            $bug_n = $bug;
+            // add classes
+            $error_type = $results[1][$key];
+            $error_class = '';
+            $error_class = ('Fatal error' == $error_type)? 'fatal-error':'error-type';
+            echo '<li><pre><span class="'.$error_class.'">'.$results[1][$key].'</span> '.$bug.'</pre></li>';
+          }
+        } ?>
+        </ol>
       </div>
       <?php
       return $debug_log;
