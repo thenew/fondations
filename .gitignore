@@ -21,3 +21,4 @@ sitemap.xml.gz
 readme.html
 license.txt
 index.php
+*.log
