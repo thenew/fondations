@@ -1,4 +1,4 @@
-﻿.htaccess
+.htaccess
 wp-*.php
 xmlrpc.php
 wp-admin/
@@ -21,4 +21,3 @@ sitemap.xml.gz
 readme.html
 license.txt
 index.php
-*.log
