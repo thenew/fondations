@@ -13,6 +13,7 @@ window.addEvent('domready',function(){
 
   // resize debug log
   if($('.fon_debug_log')){
+    console.log('toto : ');
     var resizable_debug_bar = new resizableBox($$(".fon_debug_toolbar"), {
       handler: ".handler",
       modifiers: {x: false, y: true},

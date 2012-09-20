@@ -14,8 +14,6 @@
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
-    <?php else: ?>
-        <?php fon_debug_toolbar(); ?>
     <?php endif; ?>
     <?php wp_footer(); ?>
 </body>

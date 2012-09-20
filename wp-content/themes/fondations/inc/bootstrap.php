@@ -18,9 +18,10 @@ define('BOOTSTRAP_URL',  TEMPLATE_URL.'/lib/bootstrap');
 define('CLASSES_PATH',   TEMPLATE_PATH.'/inc/classes');
 define('CLASSES_URL',    TEMPLATE_URL.'/inc/classes');
 
+global $fon_widgets; $fon_widgets = array();
+
 // Auto includes
 // Inclure les fichiers dans le dossier inc/ et inc/*/
-global $fon_widgets; $fon_widgets = array();
 foreach (glob(INC_PATH.'/*') as $inc_lvl1)
 {
   if(is_dir($inc_lvl1)){
