@@ -135,6 +135,12 @@ code {
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
 }
+pre code {
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+}
 
 /*  --------------------------------------------------
   = Transitions

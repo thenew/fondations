@@ -1,5 +1,6 @@
 <?php get_header(); ?>
 <div class="span9">
+    <input type="text">
     <?php
     $args = array(
         'post_type'     => 'post',

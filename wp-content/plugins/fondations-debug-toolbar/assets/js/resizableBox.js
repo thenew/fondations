@@ -74,7 +74,6 @@ var resizableBox = new Class({
 
 
         var initPageY = e.page.y;
-            console.log(e);
 
 
       }.bind(this));
