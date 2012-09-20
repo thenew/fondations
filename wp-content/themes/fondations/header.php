@@ -29,20 +29,4 @@
 </head>
 
 <body <?php body_class(); ?>>
-    <header class="navbar" role="banner">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <h1><a href="<?php bloginfo('url'); ?>"><?php bloginfo('name'); ?></a></h1>
-                <p><?php bloginfo('description'); ?></p>
-                <nav class="nav-collapse" role="navigation">
-                    <ul class="nav">
-                        <li class="active">
-                            <a href="<?php bloginfo('url'); ?>">Home</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-    <div class="container">
-        <div class="row">
+    <div class="wrapper">

@@ -1,0 +1,14 @@
+.home-view .logo {
+    width: 100%;
+    height: 200px;
+    background: url(assets/img/fondations/bg.png) repeat #42b0ad;
+    border-bottom: 1px solid #369492;
+    text-align: center;
+    line-height: 200px;
+    color: #fff;
+    color: rgba(255,255,255,.7);
+    font-size: 48px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    font-family: Helvetica, sans-serif;
+}

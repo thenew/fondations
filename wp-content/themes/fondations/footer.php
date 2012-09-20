@@ -1,8 +1,6 @@
-        </div><!-- .row-fluid -->
-    </div><!-- .container -->
-
-    <footer>
-    </footer>
+        <footer>
+        </footer>
+    </div><!-- .wrapper -->
 
     <!--[if lte IE 8]>
         <script type="text/javascript" src="<?php echo ASSETS_URL; ?>/js/selectivizr.js"></script>

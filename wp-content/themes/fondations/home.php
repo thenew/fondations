@@ -1,4 +1,9 @@
 <?php get_header(); ?>
+<div class="home-view">
+    <div class="logo">
+        <h1>Fondations</h1>
+    </div>
+</div>
 <div class="span9">
     <input type="text">
     <?php
@@ -12,10 +17,7 @@
             <?php $i = 0;
             while (have_posts()) : the_post(); ?>
                 <li class="item-<?php echo $i; ?>">
-                    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>		
-                        <p><?php the_content(); ?></p>
-                    </article>
+                    <?php get_template_part('loop', 'short'); ?>
                 </li>
                 <?php $i++;
             endwhile; ?>
