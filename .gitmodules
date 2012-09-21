@@ -1,0 +1,3 @@
+[submodule "wp-content/themes/fondations/lib/CSSNormalize"]
+	path = wp-content/themes/fondations/lib/CSSNormalize
+	url = git://github.com/Darklg/CSSNormalize.git
