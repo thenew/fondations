@@ -1,6 +1,0 @@
-[submodule "wp-content/themes/fondations/lib/CSSNormalize"]
-	path = wp-content/themes/fondations/lib/CSSNormalize
-	url = git://github.com/Darklg/CSSNormalize.git
-[submodule "wp-content/plugins/wp-github-sync"]
-	path = wp-content/plugins/wp-github-sync
-	url = git://github.com/lesintegristes/wp-github-sync.git
