@@ -146,27 +146,12 @@ pre code {
   = Transitions
   -------------------------------------------------- */
 
-/*#fon_dbar_search,
-.fon_debug_toolbar .options > li,
 a {
   -webkit-transition: color .2s ease-in-out, background-color .2s ease-in-out;
   -moz-transition:    color .2s ease-in-out, background-color .2s ease-in-out;
   -o-transition:      color .2s ease-in-out, background-color .2s ease-in-out;
   transition:         color .2s ease-in-out, background-color .2s ease-in-out;
 }
-.fon_debug_log .actions > * {
-  -webkit-transition: opacity .2s ease-in-out;
-  -moz-transition:    opacity .2s ease-in-out;
-  -o-transition:      opacity .2s ease-in-out;
-  transition:         opacity .2s ease-in-out;
-}
-.fon_debug_toolbar .handler {
-  -webkit-transition: box-shadow .2s ease-in-out;
-  -moz-transition:    box-shadow .2s ease-in-out;
-  -o-transition:      box-shadow .2s ease-in-out;
-  transition:         box-shadow .2s ease-in-out;
-}
-*/
 
 /*  --------------------------------------------------
   = Links
@@ -176,14 +161,24 @@ a:hover {
     text-decoration: none;
 }
 
+
+/* Selection (can't merge the two selectors) */
+
+::-moz-selection {
+    color: #fff;
+    background: #000;
+}
+
+::selection {
+    color: #fff;
+    background: #000;
+}
+
 /*  --------------------------------------------------
   = Hacks
   -------------------------------------------------- */
 
 /* Micro clearfix hack */
-
-/* For modern browsers */
-
 .cf:before,
 .cf:after {
     content: "";
@@ -194,20 +189,6 @@ a:hover {
     clear: both;
 }
 
-/* For IE 6/7 (trigger hasLayout) */
-
 .cf {
     zoom: 1;
-}
-
-/* Selection */
-
-::-moz-selection {
-    color: #fff;
-    background: #000;
-}
-
-::selection {
-    color: #fff;
-    background: #000;
 }

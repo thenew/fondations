@@ -3,3 +3,63 @@ body {
     padding: 0;
     background: url(assets/img/bg.png) repeat #eee;
 }
+
+.main {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/*    --------------------------------------------------
+    = Grids
+    -------------------------------------------------- */
+
+/* Grille principale */
+
+.grid {
+    width: 100%;
+    clear: both;
+    overflow: hidden;
+}
+
+.grid > * {
+    float: left;
+    zoom: 1;
+    overflow: hidden;
+}
+
+.grid:after {
+    content: " ";
+    display: block;
+    visibility: hidden;
+    clear: both;
+    width: 100%;
+    height: 1px;
+    line-height: 0;
+}
+
+
+.grid-2 > * {
+    width: 50%;
+}
+
+.grid-3-1 > * + *,
+.grid-1-3 > *:first-child,
+.grid-4 > * {
+    width: 25%;
+}
+
+.grid-2-1 > * + *,
+.grid-1-2 > *:first-child,
+.grid-3 > * {
+    width: 33.3%;
+}
+
+.grid-1-2 > * + *,
+.grid-2-1 > *:first-child {
+    width: 66.6%;
+}
+
+.grid-3-1 > *:first-child {
+    width: 75%;
+}

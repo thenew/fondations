@@ -1,11 +1,11 @@
-        <footer>
-        </footer>
-    </div><!-- .wrapper -->
+    </div><!-- .main -->
+    <footer>
+    </footer>
 
     <!--[if lte IE 8]>
         <script type="text/javascript" src="<?php echo ASSETS_URL; ?>/js/selectivizr.js"></script>
     <![endif]-->
-    <?php if(!WP_DEBUG): ?>
+    <?php if(!WP_DEBUG && !is_preview()): ?>
         <script>
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;

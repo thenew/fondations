@@ -1,5 +1,23 @@
 <?php
 
+// AJAX search TEST non utilisé parce que le retour ne s'affiche pas
+function fon_toto($query){
+    if(is_admin() || !$query->is_main_query() || !$query->get('s'))
+        return $query;
+    // var_dump($query->get('s'));
+    // var_dump($_GET);
+    $posts = query_posts($query);
+    $response = array();
+    foreach ($posts as $post) {
+        array_push($response, $post->post_title);
+    }
+    // var_dump($response);
+    echo $reponse;
+    die;
+}
+// add_action('pre_get_posts', 'fon_toto');
+
+
 function fon_pagination(){
   global $wp_query;
   $total_pages = $wp_query->max_num_pages;

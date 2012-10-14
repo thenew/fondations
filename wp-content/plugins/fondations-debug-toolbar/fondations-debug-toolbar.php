@@ -25,7 +25,6 @@ define('FONBAR_PLUGIN_ID', 'fondations-debug-toolbar');
 /**
  * Init
  */
-if (RTUYIHH){}
 if (!is_admin()) {
     require_once( dirname(__FILE__).'/functions.php');
     add_action('wp_enqueue_scripts', 'fonbar_CSS' );

@@ -9,7 +9,7 @@ echo '<div class="page">';
             // 'posts_per_page' => '5',
             // 'post_type' => 'any',
             's' => $param_404
-        ));
+        );
         $q_404 = new WP_Query( $args_404 );
         if (have_posts()) :
             echo '<h2>'.$param_404.'</h2>';
