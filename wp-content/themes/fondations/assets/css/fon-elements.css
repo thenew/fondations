@@ -1,37 +1,46 @@
-body {
-    font-family: 'Arial', sans-serif;
+/* -------------------------------------------------------
+    Forms
+   ------------------------------------------------------- */
+
+.fon-form input {
+    font-family: 'Arial',sans-serif;
 }
 
-/*    --------------------------------------------------
-    = Search form
-    -------------------------------------------------- */
+/* -------------------------------------------------------
+    Search form
+   ------------------------------------------------------- */
+
+/**
+ * BUGS: line-height doesn't match
+ */
+
 
 .search-form {
-    width: 100%;
     position: relative;
+    width: 100%;
 }
 
 .search-form .ajax-autocomplete-box,
 .search-form input[type="text"] {
     width: 200px;
     height: 20px;
-    overflow: hidden;
     margin: 0;
     padding: 4px 10px 4px 5px;
-    font-size: 20px;
-    /*bug line height autocomplete*/
-    /*line-height: 28px;*/
-    background-color: transparent;
-    letter-spacing: 1px;
     border: none;
+    overflow: hidden;
+    font-size: 20px;
+    letter-spacing: 1px;
     outline: none;
+    /*line-height: 28px;*/
+
+ background-color: transparent;
 }
 
 .search-form input[type="text"] {
     z-index: 2;
-    color: #333;
     position: relative;
     border-bottom: 1px solid #333;
+    color: #333;
     background-color: rgba(255,255,255,.4);
 }
 
@@ -55,8 +64,8 @@ body {
     background-color: #42B0AD;
     -webkit-box-shadow: inset 0 0 2px #333;
     -moz-box-shadow: inset 0 0 2px #333;
-    -o-box-shadow: inset 0 0 2px #333;
     box-shadow: inset 0 0 2px #333;
+    -o-box-shadow: inset 0 0 2px #333;
 }
 
 .search-form button.loading {
@@ -69,6 +78,6 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    color: #aaa;
     white-space: nowrap;
+    color: #aaa;
 }
