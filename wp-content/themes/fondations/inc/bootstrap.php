@@ -40,7 +40,7 @@ foreach (glob(INC_PATH.'/*') as $inc_lvl1)
   }
 }
 
-// register widgets
+// register widgets ICI ou dans chaque widgets ?
 add_action('widgets_init', 'fon_register_widgets');
 function fon_register_widgets(){
     global $fon_widgets;
