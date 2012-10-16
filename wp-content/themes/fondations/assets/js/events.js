@@ -9,7 +9,7 @@ window.addEvent('domready',function(){
         var results_box = new Element('div', {'class': 'ajax-results-box'});
         results_box.inject(form);
         var autocomplete_box = new Element('div', {'class': 'ajax-autocomplete-box'});
-        autocomplete_box.inject(form);
+        autocomplete_box.inject(input, "before");
         // Variables
         var old_s = "";
         var actual_autoc = autocomplete_box.get('html');
