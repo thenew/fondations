@@ -1,6 +1,7 @@
 <?php
 if(isset($_GET["ajax"]) && "1" == $_GET["ajax"]) {
     if(have_posts()):
+        // TODO json_encode()
         $response = '{"posts": [';
         $i = 0;
         while(have_posts()): the_post();
