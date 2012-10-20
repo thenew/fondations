@@ -10,13 +10,13 @@ var Fon_search = new Class({
     options:{ 
         id: 'searchform'
     },
-    initialize: function(){
+    initialize: function() {
         var fs = this, opt = this.options;
         if(!$(opt.id)) return;
         fs.setElements();
         fs.setEvents();
     },
-    setElements: function(){
+    setElements: function() {
         var fs = this, opt = this.options;
         // DOM
         fs.form = $(opt.id);
@@ -31,7 +31,7 @@ var Fon_search = new Class({
         fs.actual_autoc = "";
         // fs.actual_autoc = fs.autocomplete_box.get('html');
     },
-    setEvents: function(){
+    setEvents: function() {
         var fs = this, opt = this.options;
         // functions
         var input_keydown = fs.input_nav.bind(fs);
@@ -48,7 +48,7 @@ var Fon_search = new Class({
         });
 
     },
-    search: function(e){
+    search: function(e) {
         var fs = this, opt = this.options;
         var s = e.target.value;
         if(s != "") {
@@ -65,9 +65,9 @@ var Fon_search = new Class({
                         fs.form.getElement('button').addClass('loading');
                     },
                     onSuccess: function(r){
-                        if(r.error) {
-                            fs.autocomplete_box.set('html', '');
-                            fs.actual_autoc = "";
+                        console.log(r);
+                        if(r.error && r.error == "no results") {
+                            fs.clear();
                         } else {
                             var post1_t = r.posts[0].title;
                             // autocomplete
@@ -93,8 +93,7 @@ var Fon_search = new Class({
                                     fs.actual_autoc = post1_t;
                                 }
                             } else {
-                                fs.autocomplete_box.set('html', '');
-                                fs.actual_autoc = "";
+                                fs.clear();
                             }
 
                             // list results
@@ -113,20 +112,18 @@ var Fon_search = new Class({
                 // http://net.tutsplus.com/tutorials/javascript-ajax/checking-username-availability-with-mootools-and-request-json/?search_index=7
             }
         } else {
-            fs.autocomplete_box.set('html', '');
-            fs.actual_autoc = "";
+            fs.clear();
         }
-        console.log(fs.actual_autoc);
     },
-    input_nav: function(e){
+    input_nav: function(e) {
         var fs = this, opt = this.options;
-        // TAB
-        if(fs.actual_autoc != "" && (e.code == 9 || e.key == "tab")) {
+        // TAB & right
+        // TODO right limiter au curseur a droite
+        if(fs.actual_autoc != "" && (e.code == 9 || e.key == "tab" || e.code == 39 || e.key == "right")) {
             // fill input with the correct title (true case)
             fs.input.value = fs.results_box.getElement('li a').get('html');
             fs.post_url = fs.results_box.getElement('li a').get('href');
-            fs.autocomplete_box.set('html', '');
-            fs.results_box.set('html', '');
+            fs.clear();
             fs.form.getElement('button')
                    .removeClass('loading')
                    .set('html', 'GO');
@@ -145,7 +142,7 @@ var Fon_search = new Class({
             fs.input.focus();
         }
     },
-    results_nav: function(e){
+    results_nav: function(e) {
         var fs = this, opt = this.options;
         if(e.code == 9 || e.key == "tab" || e.code == 40 || e.key == "down") {
             fs.results_box.getElement('li a').focus();
@@ -153,5 +150,11 @@ var Fon_search = new Class({
         if(e.code == 38 || e.key == "up") {
             fs.input.focus();
         }
+    },
+    clear: function(e) {
+        var fs = this, opt = this.options;
+        fs.autocomplete_box.set('html', '');
+        fs.actual_autoc = "";
+        fs.results_box.set('html', '');
     }
 });

@@ -14,7 +14,6 @@
  * BUGS: line-height doesn't match
  */
 
-
 .search-form {
     position: relative;
     width: 100%;
@@ -23,25 +22,31 @@
 .search-form .ajax-autocomplete-box,
 .search-form input[type="text"] {
     width: 200px;
-    height: 20px;
     margin: 0;
     padding: 4px 10px 4px 5px;
-    border: none;
+    padding: 0;
+    border: 1px solid transparent;
     overflow: hidden;
     font-size: 20px;
+    line-height: 26px;
     letter-spacing: 1px;
     outline: none;
-    /*line-height: 28px;*/
+    background-color: transparent;
+}
 
- background-color: transparent;
+.search-form .ajax-autocomplete-box {
+    position: absolute;
+    white-space: nowrap;
+    color: #ccc;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
 }
 
 .search-form input[type="text"] {
-    z-index: 2;
     position: relative;
     border-bottom: 1px solid #333;
     color: #333;
-    background-color: rgba(255,255,255,.4);
 }
 
 .search-form button {
@@ -71,16 +76,4 @@
 .search-form button.loading {
     color: #42B0AD;
     background-color: #000;
-}
-
-.search-form .ajax-autocomplete-box {
-    z-index: 1;
-    position: absolute;
-    top: 1px;
-    left: 0;
-    white-space: nowrap;
-    color: #aaa;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
 }
