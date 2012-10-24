@@ -58,7 +58,8 @@ function fon_get_template(){
 function fon_debug_log(){
   if(WP_DEBUG && WP_DEBUG_LOG){
     $debug_file = ABSPATH.'wp-content/debug.log';
-    if(file_exists($debug_file)) {
+    if(file_exists($debug_file) && file_get_contents($debug_file) != "") {
+
       // delete
       if(isset($_POST['fon_debug_log']) && 'delete' == $_POST['fon_debug_log']){
         if(unlink($debug_file)) {

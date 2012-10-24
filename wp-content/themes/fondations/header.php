@@ -32,7 +32,7 @@
     <header class="header">
         <?php if(is_home()): ?>
             <div class="home-logo">
-                <h1>Fondations</h1>
+                <h1 class="logo">Fondations</h1>
             </div>
         <?php endif; ?>
     </header>
