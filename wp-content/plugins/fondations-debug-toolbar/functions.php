@@ -61,10 +61,8 @@ function fon_debug_log(){
     if(file_exists($debug_file) && file_get_contents($debug_file) != "") {
 
       // delete
-      if(isset($_POST['fon_debug_log']) && 'delete' == $_POST['fon_debug_log']){
+      if(isset($_GET['fon_debug_log']) && 'delete' == $_GET['fon_debug_log']){
         if(unlink($debug_file)) {
-          $_POST['fon_debug_log'] = '';
-          unset($GLOBALS['_POST']['fon_debug_log']);
           die;
         } else {
           echo "Error: File could not be deleted";
@@ -77,7 +75,7 @@ function fon_debug_log(){
       <div class="fon_debug_log" id="fon_debug_log">
         <?php // Delete button ?>
         <div class="actions">
-          <form name="fon_debug_log" class="delete" action="" method="post">
+          <form id="fon_debug_log_form" name="fon_debug_log" class="delete" action="" method="get">
             <input type="hidden" name="fon_debug_log" value="delete" />
             <button class="btn btn-danger btn-delete">Vider les logs</button>
           </form>
@@ -104,12 +102,6 @@ function fon_debug_log(){
       <?php
       return $debug_log;
     } // end if file exists
-
-    // si il reste des _POST qui trainent
-    if(isset($_POST['fon_debug_log'])){
-      $_POST['fon_debug_log'] = '';
-      unset($GLOBALS['_POST']['fon_debug_log']);
-    }
 
   }
 }
