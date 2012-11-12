@@ -1,6 +1,7 @@
 // Exemple of DOM
-// <form id="searchform" class="fon-form search-form" role="search" method="get" action="<?php echo home_url('/'); ?>">
-//     <input type="text" value="" name="s" id="s" placeholder="Search posts" spellcheck="false" required autocomplete="off" aria-autocomplete="list" aria-haspopup="true"/>
+// <form method="get" action="">
+//     <div id="ajax-search-autocomplete"></div>
+//     <input type="text" name="s" id="ajax-search-input" spellcheck="false" autocomplete="off" aria-autocomplete="list" aria-haspopup="true"/>
 //     <button type="submit">Search</button>
 // </form>
 
@@ -8,39 +9,45 @@
 var Fon_search = new Class({
     Implements: [Options,Events],
     options:{ 
-        id: 'searchform'
+        input_id: 'fon-s-input',
+        autocomplete_id: 'fon-s-autocomplete',
+        results_id: 'fon-s-results'
     },
-    initialize: function() {
+    initialize: function(options) {
         var fs = this, opt = this.options;
-        if(!$(opt.id)) return;
+        opt = Object.merge(opt, options);
+        if(!$(opt.input_id) || !$(opt.autocomplete_id) || !$(opt.results_id)) return;
         fs.setElements();
         fs.setEvents();
     },
     setElements: function() {
         var fs = this, opt = this.options;
         // DOM
-        fs.form = $(opt.id);
-        fs.input = fs.form.getElement('input[type="text"]');
-        // HTML Elements
-        fs.results_box = new Element('div', {'class': 'ajax-results-box'});
-        fs.results_box.inject(fs.form);
-        fs.autocomplete_box = new Element('div', {'class': 'ajax-autocomplete-box'});
-        fs.autocomplete_box.inject(fs.input, "before");
+        fs.input = $(opt.input_id);
+        fs.form = $(opt.input_id).getParent('form');
+        fs.results_box = $(opt.results_id);
+        fs.autocomplete_box = $(opt.autocomplete_id);
         // Variables
-        fs.old_s = "";
-        fs.actual_autoc = "";
-        // fs.actual_autoc = fs.autocomplete_box.get('html');
+        fs.old_s,
+        fs.actual_autoc,
+        fs.true_actual_autoc,
+        // fs.match_post,
+        fs.previous_reponse,
+        fs.delay = 0;
     },
     setEvents: function() {
         var fs = this, opt = this.options;
-        // functions
         var input_keydown = fs.input_nav.bind(fs);
-        var input_keyup = fs.search.bind(fs);
+        var input_keyup = fs.handle_search.bind(fs);
         var results = fs.results_nav.bind(fs);
-        // events
         fs.input.addEvents({
             keydown: input_keydown,
-            keyup: input_keyup
+            keyup: function(e) {
+                clearTimeout(fs.delay);
+                fs.delay = setTimeout(function() {
+                    input_keyup(e);
+                }, 100);
+            }
         });
         // Results box Events
         fs.results_box.addEvents({
@@ -48,72 +55,64 @@ var Fon_search = new Class({
         });
 
     },
-    search: function(e) {
+    handle_search: function(e) {
         var fs = this, opt = this.options;
         var s = e.target.value;
         if(s != "") {
-            // if the search keywords is new
-            if(s != fs.old_s) {
+            // if the search keywords is not new
+            if(s == fs.old_s) {
+                fs.clear();
+            }else {
                 fs.old_s = s;
-                                // fs.actual_autoc = "";
-                // AJAX request
                 var request = new Request.JSON({
                     url: fs.form.get('action'),
                     method: fs.form.get('method'),
                     data: {'ajax':1, 's':s},
                     onRequest: function(){
-                        fs.form.getElement('button').addClass('loading');
+                        fs.form.addClass('loading');
                     },
-                    onSuccess: function(r){
-                        console.log(r);
-                        if(r.error && r.error == "no results") {
+                    onSuccess: function(response){
+                        if(response.error && response.error == "no results") {
                             fs.clear();
-                        } else {
-                            var post1_t = r.posts[0].title;
-                            // autocomplete
-                            
-                            // Test case of the letter
-                            for (var i = 1; i <= s.length; i++) {
-                                var test_letter = s.slice(i-1, i);
-                                var l_index = i;
-                                var corr_letter = post1_t.slice(l_index-1, l_index);
-                                // is lowercase
-                                if(test_letter.toUpperCase() != test_letter) {
-                                    corr_letter = corr_letter.toLowerCase();
-                                }else {
-                                    corr_letter = corr_letter.toUpperCase();
-                                }
-                                post1_t = post1_t.slice(0, l_index-1) + corr_letter + post1_t.slice(l_index);
-                            };
-
-                            // if search keywords match the first result
-                            if(s.toLowerCase() == post1_t.toLowerCase().slice(0, s.length)) {
-                                if (fs.actual_autoc != post1_t) {
-                                    fs.autocomplete_box.set('html', post1_t);
-                                    fs.actual_autoc = post1_t;
-                                }
-                            } else {
-                                fs.clear();
-                            }
-
-                            // list results
-                            var posts_list = new Element('ul');
-                            r.posts.each(function(el,i){
-                                new Element('a',
-                                    {'href': el.permalink, 'html': el.title}
-                                ).inject(new Element('li').inject(posts_list)); 
-                            });
-                            fs.results_box.set('html', '');
-                            posts_list.inject(fs.results_box);
+                        }else {
+                            fs.autocomplete(response, s);
                         }
                     }
                 }).send();
-                // un get au lieu
-                // http://net.tutsplus.com/tutorials/javascript-ajax/checking-username-availability-with-mootools-and-request-json/?search_index=7
             }
-        } else {
-            fs.clear();
         }
+    },
+    autocomplete: function(response, s) {
+        var fs = this, opt = this.options;
+        var post1_t = response.posts[0].title;
+        var post1_t_true = post1_t;
+        // if search keywords doesn't match the first result
+        if(s.toLowerCase() != post1_t.toLowerCase().slice(0, s.length)) {
+            fs.clear();
+        } else {
+            // Transform case of the autocomplete title to match search
+            post1_t = fs.match_case(s, post1_t);
+            if (fs.actual_autoc != post1_t) {
+                fs.autocomplete_box.set('html', post1_t);
+                fs.actual_autoc = post1_t;
+                fs.true_actual_autoc = post1_t_true;
+            }
+        }
+        // fs.match_post = response.tpl_match_post;
+
+        // populate list results if response is different
+        // if(fs.previous_reponse != response.tpl) {
+            var posts_list = new Element('ul');
+            response.posts.each(function(el,i){
+                new Element('a',
+                    {'href': el.permalink, 'html': el.title}
+                ).inject(new Element('li').inject(posts_list)); 
+            });
+            fs.results_box.set('html', '');
+            posts_list.inject(fs.results_box);
+        // }
+        // fs.previous_reponse = response.tpl;
+
     },
     input_nav: function(e) {
         var fs = this, opt = this.options;
@@ -121,7 +120,8 @@ var Fon_search = new Class({
         // TODO right limiter au curseur a droite
         if(fs.actual_autoc != "" && (e.code == 9 || e.key == "tab" || e.code == 39 || e.key == "right")) {
             // fill input with the correct title (true case)
-            fs.input.value = fs.results_box.getElement('li a').get('html');
+            fs.input.value = fs.true_actual_autoc;
+            // fs.input.value = fs.results_box.getElement('li a').get('html');
             fs.post_url = fs.results_box.getElement('li a').get('href');
             fs.clear();
             fs.form.getElement('button')
@@ -156,5 +156,33 @@ var Fon_search = new Class({
         fs.autocomplete_box.set('html', '');
         fs.actual_autoc = "";
         fs.results_box.set('html', '');
+    },
+    /**
+      *
+      * Transform each letter case of transform string to
+      * match the reference string
+      *
+      * @param {String} ref
+      * @param {String} transform
+      * @return {String} transformed transform
+      *
+      */
+    match_case: function(ref, transform) {
+        var fs = this, opt = this.options;
+        if(!ref || !transform) return;
+        // for each search value letter we match the case with letter from post1 title
+        for (var i = 1; i <= ref.length; i++) {
+            var ref_letter = ref.slice(i-1, i);
+            var l_index = i;
+            var corr_letter = transform.slice(l_index-1, l_index);
+            // if is lowercase
+            if(ref_letter.toUpperCase() != ref_letter) {
+                corr_letter = corr_letter.toLowerCase();
+            }else {
+                corr_letter = corr_letter.toUpperCase();
+            }
+            transform = transform.slice(0, l_index-1) + corr_letter + transform.slice(l_index);
+        };
+        return transform;
     }
 });

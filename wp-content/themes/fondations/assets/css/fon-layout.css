@@ -1,7 +1,9 @@
 body {
     margin: 0;
     padding: 0;
-    background: url(assets/img/bg.png) repeat #eee;
+    background-image: url(assets/img/bg.png);
+    background-repeat: repeat;
+    background-color: #eee;
     font-family: 'Arial', sans-serif;
 }
 
