@@ -129,7 +129,7 @@ code {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    line-height: 30px;
+    line-height: 20px;
     color: #dc3522;
     background-color: #F7F7F9;
     -ms-border-radius: 3px;
@@ -201,13 +201,16 @@ code {
     -o-box-shadow: 0 5px 40px rgba(0,0,0,.6) inset;
 }
 
+.fon_debug_log code,
 .fon_debug_log pre {
     text-shadow: 0 0 4px rgba(0,255,102,.4);
     color: #E6FFF1;
+    background-color: transparent;
 }
 
 .fon_debug_log .actions {
     position: absolute;
+    z-index: 2010;
     top: 7px;
     right: 7px;
 }
