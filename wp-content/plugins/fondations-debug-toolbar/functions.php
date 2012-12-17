@@ -11,7 +11,7 @@ function fon_debug_toolbar(){
         <li class="queries"><?php echo get_num_queries(); ?></li>
         <li class="timer"><?php echo timer_stop($display = 0, $precision = 2).'s'; ?></li>
         <li class="is_link user">
-          <?php 
+          <?php
           // TODO: absolute url or relative url for the redirect
           $fon_current_url = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
           if (is_user_logged_in()){
@@ -77,10 +77,8 @@ function fon_debug_log(){
         <div class="actions">
           <form id="fon_debug_log_form" name="fon_debug_log" class="delete" action="" method="get">
             <input type="hidden" name="fon_debug_log" value="delete" />
-            <button class="btn btn-danger btn-delete">Vider les logs</button>
+            <button type="button" class="btn-delete">X</button>
           </form>
-          <?php // Trigger modal ?>
-          <a href="#fon_modal_log" data-toggle="modal" class="btn display">Afficher logs</a>
         </div>
         <ol class="linenums">
         <?php // change order : from newest to oldest

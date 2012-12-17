@@ -24,6 +24,7 @@ code {
     right: 0;
     bottom: 0;
     left: 0;
+    width: 100%;
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
@@ -132,8 +133,6 @@ code {
     line-height: 20px;
     color: #dc3522;
     background-color: #F7F7F9;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
 }
 
 /*Search*/
@@ -141,9 +140,10 @@ code {
 .fon_debug_toolbar .options .search {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 1px;
     bottom: 0;
     width: 20%;
+    height: 31px;
     padding: 0;
     background: none;
 }
@@ -171,10 +171,6 @@ code {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    -ms-box-shadow: none;
-    -o-box-shadow: none;
-    -ms-border-radius: 0;
-    -o-border-radius: 0;
 }
 
 #fon_dbar_search:focus,
@@ -225,11 +221,31 @@ code {
 
 .fon_debug_log .actions .delete:hover,
 .fon_debug_log .actions .display:hover {
-    opacity: 1;
+    opacity: .9999;
 }
 
 .fon_debug_log .actions .delete {
     margin-bottom: 7px;
+}
+
+.fon_debug_log .actions .btn-delete {
+    display: block;
+    width: 21px;
+    height: 21px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    background: #DC3522;
+    color: #eee;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 20px;
+    font-family: 'Consolas', sans-serif;
+    font-size: 16px;
 }
 
 .fon_debug_log .actions .display {
