@@ -28,12 +28,12 @@ define('CLASSES_URL',    TEMPLATE_URL.'/fon/core/classes');
  */
 
 /* core */
-foreach (glob(FON_PATH.'/core/admin/*') as $file) { if(!is_dir($file)) require_once $file; }
-foreach (glob(FON_PATH.'/core/classes/*') as $file) { if(!is_dir($file)) require_once $file; }
-foreach (glob(FON_PATH.'/core/functions/*') as $file) { if(!is_dir($file)) require_once $file; }
+foreach (glob(FON_PATH.'/core/admin/*.php') as $file) { if(!is_dir($file)) require_once $file; }
+foreach (glob(FON_PATH.'/core/classes/*.php') as $file) { if(!is_dir($file)) require_once $file; }
+foreach (glob(FON_PATH.'/core/functions/*.php') as $file) { if(!is_dir($file)) require_once $file; }
 
 /* settings */
-foreach (glob(FON_PATH.'/settings/*') as $file) { if(!is_dir($file)) require_once $file; }
+foreach (glob(FON_PATH.'/settings/*.php') as $file) { if(!is_dir($file)) require_once $file; }
 
 /* widgets */
 global $fon_widgets; $fon_widgets = array();
