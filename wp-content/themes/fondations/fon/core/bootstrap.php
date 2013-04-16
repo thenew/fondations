@@ -37,12 +37,11 @@ foreach (glob(FON_PATH.'/settings/*') as $file) { if(!is_dir($file)) require_onc
 
 /* widgets */
 global $fon_widgets; $fon_widgets = array();
-foreach (glob(FON_PATH.'/widgets/*') as $file) {
+foreach (glob(FON_PATH.'/widgets/*.php') as $file) {
     if(!is_dir($file)) {
         require_once $file;
         // register widget
-        preg_match('/widgets\/(\w*)/', $file, $widget_name);
-        array_push($fon_widgets, $widget_name[1]);
+        array_push($fon_widgets, basename($file, '.php'));
     }
 }
 
