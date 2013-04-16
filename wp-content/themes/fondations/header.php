@@ -8,14 +8,7 @@
     <meta charset="<?php bloginfo( 'charset' ); ?>" />
     <title><?php bloginfo('name'); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <?php if(FONDATIONS_BOOTSTRAP): ?>
-        <link rel="stylesheet" href="<?php echo BOOTSTRAP_URL; ?>/docs/assets/css/bootstrap.css">
-        <link rel="stylesheet" href="<?php echo BOOTSTRAP_URL; ?>/docs/assets/css/bootstrap-responsive.css">
-    <?php endif; ?>
-    <?php if(FONDATIONS_CSSNORMALIZE): ?>
-        <link rel="stylesheet" href="<?php echo TEMPLATE_URL ?>/lib/cssnormalize.php">
-    <?php endif; ?>
+
     <link rel="stylesheet" href="<?php echo TEMPLATE_URL ?>/style.php">
     <link rel="icon" href="<?php echo ASSETS_URL ?>/img/favicon.png">
 
