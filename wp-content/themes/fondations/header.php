@@ -9,7 +9,7 @@
     <title><?php bloginfo('name'); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="<?php echo TEMPLATE_URL ?>/style.php">
+    <!-- <link rel="stylesheet" href="<?php echo TEMPLATE_URL ?>/style.php"> -->
     <link rel="icon" href="<?php echo ASSETS_URL ?>/img/favicon.png">
 
     <link rel="profile" href="http://gmpg.org/xfn/11" />

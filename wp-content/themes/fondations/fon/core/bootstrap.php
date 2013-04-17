@@ -13,6 +13,9 @@ define('FON_PATH',       TEMPLATE_PATH.'/fon');
 define('ASSETS_PATH',    TEMPLATE_PATH.'/assets');
 define('ASSETS_URL',     TEMPLATE_URL.'/assets');
 
+define('PUBLIC_PATH',    TEMPLATE_PATH.'/public');
+define('PUBLIC_URL',     TEMPLATE_URL.'/public');
+
 define('LIB_PATH',       TEMPLATE_PATH.'/fon/lib');
 define('LIB_URL',        TEMPLATE_URL.'/fon/lib');
 
