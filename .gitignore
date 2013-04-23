@@ -16,6 +16,7 @@ wp-content/cache/supercache/*
 wp-content/languages/
 wp-content/themes/twentyeleven
 wp-content/themes/twentyten
+wp-content/themes/fondations/public/*
 sitemap.xml
 sitemap.xml.gz
 readme.html
