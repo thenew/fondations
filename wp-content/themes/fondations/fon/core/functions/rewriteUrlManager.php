@@ -2,9 +2,6 @@
 // Dédicace https://github.com/lesintegristes/wp-github-sync/blob/master/github-sync.php
 
 global $fon_routes;
-// $fon_routes = array(
-//     's-add' => 'sAdd'
-// );
 
 foreach (glob(FON_PATH.'/views/*.php') as $file) {
     $filename = basename($file, '.php');
