@@ -56,3 +56,59 @@ function fon_get_attachment($page_id, $format) {
     endwhile;
     wp_reset_query();
 }
+
+
+function fon_upload_files($imgs) {
+    if(!is_array($imgs)) return;
+    foreach ($imgs as $img) {
+        if(!isset($img['tmp_name'])) return;
+        $file = trim($img['tmp_name']);
+        $img_content = file_get_contents($file);
+
+        if (isset($img['name']))
+            $img_name = uniqid().'_'.$img['name'];
+        else
+            $img_name = basename($file);
+
+        $img_name_info = pathinfo($img['name']);
+        $img_title = str_replace( array("-", "_"), " ", $img_name_info['filename'] );
+
+        $upload_dir = wp_upload_dir();
+        $upload_dir = $upload_dir["basedir"]."/fon/";
+
+        // uploads directory
+        if(!is_dir($upload_dir))
+            @mkdir($upload_dir);
+        @chmod($upload_dir, 0777);
+        $filename = $upload_dir.$img_name;
+        if(!file_exists($filename)) {
+            if(file_put_contents($filename, $img_content)) {
+
+                // insert attachment
+                $wp_filetype = wp_check_filetype( basename($filename), null );
+                $wp_upload_dir = wp_upload_dir();
+                $img_guid = $wp_upload_dir['baseurl'] . '/fon/' . basename( $filename );
+                $attachment = array(
+                    'guid' => $img_guid,
+                    'post_mime_type' => $wp_filetype['type'],
+                    'post_title' => $img_title,
+                    'post_content' => '',
+                    'post_status' => 'inherit'
+                );
+                $attach_id = wp_insert_attachment($attachment, $filename);
+                // you must first include the image.php file
+                // for the function wp_generate_attachment_metadata() to work
+                require_once(ABSPATH . 'wp-admin/includes/image.php');
+                $attach_data = wp_generate_attachment_metadata($attach_id, $filename);
+                wp_update_attachment_metadata($attach_id, $attach_data);
+
+                return $img_guid;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+}
+
