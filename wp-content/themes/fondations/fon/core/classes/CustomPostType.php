@@ -136,6 +136,7 @@ class Custom_Post_Type extends Fon_Base_Class
             'labels'             => $labels,
             'public'             => true,
             'show_ui'            => true,
+            'hierarchical'       => true,
             'show_in_nav_menus'  => true,
             '_builtin'           => false,
           ),

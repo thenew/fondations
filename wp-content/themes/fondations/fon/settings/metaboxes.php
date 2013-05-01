@@ -13,7 +13,7 @@ $fon_meta_boxes[] = array(
     'fields' => array(
         array(
             'name'  => 'Titre original',
-            'id'    => "{$prefix}original_title",
+            'id'    => "{$prefix}title_original",
             'type'  => 'text',
         ),
         array(
@@ -25,13 +25,21 @@ $fon_meta_boxes[] = array(
             'name' => 'Résumé',
             'id'   => "{$prefix}summary",
             'type' => 'textarea',
-            'cols' => 15,
-            'rows' => 5,
         ),
         array(
             'name' => 'Date de sortie française',
             'id'   => "{$prefix}release_date_fr",
             'type' => 'date',
+        ),
+        array(
+            'name' => 'Pochette originale',
+            'id'   => "{$prefix}cover_original",
+            'type' => 'image',
+        ),
+        array(
+            'name' => 'Pochette',
+            'id'   => "{$prefix}cover_fr",
+            'type' => 'image_advanced',
         ),
     )
 );

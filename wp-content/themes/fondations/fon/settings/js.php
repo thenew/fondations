@@ -15,9 +15,9 @@ function fon_script_init() {
     }
     // Admin
     else {
-        wp_deregister_script( 'jquery' ); // unregistered key jQuery
-        wp_enqueue_script('jquery',ASSETS_URL.'/js/lib/jquery-1.7.1.min.js','','1.7.1',false);
-        wp_enqueue_script('mediaupload',ASSETS_URL.'/js/media-upload.js','','1.0',false);
+        // wp_deregister_script( 'jquery' ); // unregistered key jQuery
+        // wp_enqueue_script('jquery',ASSETS_URL.'/js/lib/jquery-1.7.1.min.js','','1.7.1',false);
+        // wp_enqueue_script('mediaupload',ASSETS_URL.'/js/media-upload.js','','1.0',false);
         wp_enqueue_script('admin',ASSETS_URL.'/js/admin.js','','1.0',false);
     }
 }
