@@ -15,7 +15,7 @@
     letter-spacing: 2px;
     color: #fff;
     color: rgba(255,255,255,.7);
-    background: url(assets/img/fondations/bg.png) repeat #42b0ad;
+    background: url(../img/fondations/bg.png) repeat #42b0ad;
     /*overflow: hidden;*/
     position: relative;
     z-index: 1;
@@ -25,7 +25,7 @@
     position: relative;
     z-index: 2;
     padding-top: 15px;
-    background: url(assets/img/fondations/logo-login.png) center top no-repeat;
+    background: url(../img/fondations/logo-login.png) center top no-repeat;
 }
 
 .home .main {

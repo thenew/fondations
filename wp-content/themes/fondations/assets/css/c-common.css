@@ -39,12 +39,12 @@ min-height: 100%;
 
 .error p {
     color: #C4685A;
-    background: url(img/icons/error_icon.png) left 2px no-repeat;
+    background: url(../img/icons/error_icon.png) left 2px no-repeat;
 }
 
 .success p {
     color: #75C95F;
-    background: url(img/icons/success_icon.png) left top no-repeat;
+    background: url(../img/icons/success_icon.png) left top no-repeat;
 }
 
 /*  --------------------------------------------------

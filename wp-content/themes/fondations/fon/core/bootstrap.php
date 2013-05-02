@@ -13,8 +13,8 @@ define('FON_PATH',       TEMPLATE_PATH.'/fon');
 define('ASSETS_PATH',    TEMPLATE_PATH.'/assets');
 define('ASSETS_URL',     TEMPLATE_URL.'/assets');
 
-define('PUBLIC_PATH',    TEMPLATE_PATH.'/public');
-define('PUBLIC_URL',     TEMPLATE_URL.'/public');
+define('PUBLIC_PATH',    ASSETS_PATH.'/public');
+define('PUBLIC_URL',     ASSETS_URL.'/public');
 
 define('LIB_PATH',       TEMPLATE_PATH.'/fon/lib');
 define('LIB_URL',        TEMPLATE_URL.'/fon/lib');
@@ -24,6 +24,12 @@ define('LIB_URL',        TEMPLATE_URL.'/fon/lib');
 
 define('CLASSES_PATH',   TEMPLATE_PATH.'/fon/core/classes');
 define('CLASSES_URL',    TEMPLATE_URL.'/fon/core/classes');
+
+function fon_define_env_dev(){
+    $url_extension = pathinfo($_SERVER['HTTP_HOST'],PATHINFO_EXTENSION);
+    return (WP_DEBUG || $url_extension == "dev" || $url_extension == "local" || is_preview());
+}
+define('ENV_DEV', fon_define_env_dev());
 
 
 /*
@@ -55,26 +61,3 @@ function fon_register_widgets(){
         register_widget($widget.'_widget');
     }
 }
-
-
-// Auto includes
-// Inclure les fichiers dans le dossier inc/ et inc/*/
-// foreach (glob(FON_PATH.'/*') as $inc_lvl1)
-// {
-//   if(is_dir($inc_lvl1)){
-//     foreach (glob($inc_lvl1.'/*') as $inc_lvl2){
-//       if(!is_dir($inc_lvl2)){
-//           require_once $inc_lvl2;
-//           // widgets
-//           if(strpos($inc_lvl1, 'widgets')) {
-//             preg_match('/widgets\/(\w*)/', $inc_lvl2, $widget_name);
-//             array_push($fon_widgets, $widget_name[1]);
-//           }
-//       }
-//     }
-//   } else {
-//       require_once $inc_lvl1;
-//   }
-// }
-
-// register widgets ICI ou dans chaque widgets ?
