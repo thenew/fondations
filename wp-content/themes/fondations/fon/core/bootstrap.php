@@ -7,7 +7,6 @@ define('FONDATIONS_VERSION', '0.1');
 define('TEMPLATE_URL',   get_bloginfo('template_directory')); // path with virtual hosts
 define('TEMPLATE_PATH',  get_template_directory()); // the server-side path to folder
 
-// define('INC_PATH',       TEMPLATE_PATH.'/fon/inc');
 define('FON_PATH',       TEMPLATE_PATH.'/fon');
 
 define('ASSETS_PATH',    TEMPLATE_PATH.'/assets');
@@ -18,9 +17,6 @@ define('PUBLIC_URL',     ASSETS_URL.'/public');
 
 define('LIB_PATH',       TEMPLATE_PATH.'/fon/lib');
 define('LIB_URL',        TEMPLATE_URL.'/fon/lib');
-
-// define('BOOTSTRAP_PATH', TEMPLATE_PATH.'/lib/bootstrap');
-// define('BOOTSTRAP_URL',  TEMPLATE_URL.'/lib/bootstrap');
 
 define('CLASSES_PATH',   TEMPLATE_PATH.'/fon/core/classes');
 define('CLASSES_URL',    TEMPLATE_URL.'/fon/core/classes');

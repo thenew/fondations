@@ -27,11 +27,16 @@ function unregister_default_wp_widgets() {
 // add_filter( 'show_admin_bar', '__return_false' );
 
 // Custom CSS for the login page
-// Create wp-login.css in your theme folder
-function wpfme_loginCSS() {
-    echo '<link rel="stylesheet" type="text/css" href="'.ASSETS_URL.'/stylesheets/wp-login.css"/>';
+function fon_login_enqueue() {
+    wp_enqueue_style('fon-login', ASSETS_URL.'/css-admin/wp-login.css', array(), '1', 'all');
 }
-add_action('login_head', 'wpfme_loginCSS');
+add_action('login_enqueue_scripts', 'fon_login_enqueue');
+
+// Custom CSS for the login page
+function fon_admin_enqueue() {
+    wp_enqueue_style('fon-admin', ASSETS_URL.'/css-admin/admin.css', array(), '1', 'all');
+}
+add_action('admin_enqueue_scripts', 'fon_admin_enqueue');
 
 // Remove the version number of WP
 remove_action('wp_head', 'wp_generator');

@@ -1,9 +1,0 @@
-/* ---------------------------------------------------------------------- 
-   = Admin (in wordpress admin only)
-   ---------------------------------------------------------------------- */
-
-/* pour prévenir d'un bug avec le color picker qui dépasse du bloc visible */
-body.post-new-php.js #wpbody-content,
-body.post-php.js #wpbody-content {
-	padding-bottom: 125px;
-}

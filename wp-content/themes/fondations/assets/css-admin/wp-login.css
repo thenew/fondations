@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+html,
+body.login {
+    background: url(../img/fondations/bg.png) repeat #42b0ad;
+}
+
+.login h1 a {
+    margin-bottom: 10px;
+    background: url(../img/fondations/logo-login.png) no-repeat top center;
+}
+
+.login #loginform {
+    border: 1px solid #70CDC9;
+    background: rgba(0,0,0,.5);
+    -webkit-box-shadow: 1px 1px 10px rgba(0,0,0,0.5) inset;
+    -moz-box-shadow: 1px 1px 10px rgba(0,0,0,0.5) inset;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.5) inset;
+    -ms-box-shadow: 1px 1px 10px rgba(0,0,0,0.5) inset;
+    -o-box-shadow: 1px 1px 10px rgba(0,0,0,0.5) inset;
+}
+
+.login label {
+    color: #eee;
+}
+
+.login #login #nav a,
+.login #login #backtoblog a {
+    text-shadow: none;
+    color: #fff !important;
+}
+
+.login #login #nav a:hover,
+.login #login #backtoblog a:hover {
+    color: #143736 !important;
+}
