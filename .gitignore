@@ -15,8 +15,8 @@ wp-content/cache/*
 wp-content/cache/supercache/*
 wp-content/languages/
 wp-content/themes/twentyeleven
-wp-content/themes/twentyten
-wp-content/themes/fondations/public/*
+wp-content/themes/twentytwelve
+wp-content/themes/fondations/assets/public/*
 sitemap.xml
 sitemap.xml.gz
 readme.html
