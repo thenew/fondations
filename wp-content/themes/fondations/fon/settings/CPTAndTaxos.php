@@ -13,3 +13,6 @@ $game = new Custom_Post_Type( 'Game' );
 $game->add_taxonomy( 'genre' );
 $game->add_taxonomy( 'support' );
 
+
+$people = new Custom_Post_Type( 'People' );
+
