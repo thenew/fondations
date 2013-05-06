@@ -15,4 +15,4 @@ $game->add_taxonomy( 'support' );
 
 
 $people = new Custom_Post_Type( 'People' );
-
+$people->add_taxonomy( 'role' );
