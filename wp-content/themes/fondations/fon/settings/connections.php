@@ -34,4 +34,4 @@ function fon_register_connections() {
     ) );
 }
 
-add_action('init', 'fon_register_connections');
+add_action('p2p_init', 'fon_register_connections');
