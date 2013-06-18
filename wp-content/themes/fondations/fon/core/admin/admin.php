@@ -17,7 +17,7 @@ function remove_menus () {
 	  unset($menu[25]); 
 	
    // delete Pages sous-menu
-	unset($submenu['edit.php?post_type=page'][5]); // toutes le pages
+   // unset($submenu['edit.php?post_type=page'][5]); // toutes le pages
    // unset($submenu['edit.php?post_type=page'][10]); // ajouter 
 	
    // delete categories link
