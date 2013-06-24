@@ -16,19 +16,19 @@ function fon_register_connections() {
         'reciprocal' => true,
 
         'fields' => array(
-            'role' => array(
-                'title' => 'Rôle',
-                'type' => 'select',
-                'values' => $values
-            ),
+            // 'role' => array(
+            //     'title' => 'Rôle',
+            //     'type' => 'select',
+            //     'values' => $values
+            // ),
 
             // TODO create a table to link a p2p to a taxonomy
             // and display the terms in the p2p admin
 
             // 'role' => array(
-            //     // 'title' => 'Rôle',
-            //     'type' => 'taxonomy',
-            //     'values' => 'role'
+                // 'title' => 'Rôle',
+                // 'type' => 'taxonomy',
+                // 'values' => 'role'
             // ),
         )
     ) );

@@ -6,7 +6,7 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html <?php language_attributes(); ?> class="no-js" dir="ltr"> <!--<![endif]-->
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>" />
-    <title><?php wp_title('-') ?></title>
+    <title><?php bloginfo('name'); ?> <?php wp_title('-') ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="<?php echo ASSETS_URL ?>/img/favicon.png">
     <link rel="profile" href="http://gmpg.org/xfn/11" />
