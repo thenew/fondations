@@ -53,3 +53,18 @@ define('DISALLOW_FILE_EDIT', true);
 // }
 
 // add_action('rewrite_rules_array', fon_set_permalink());
+
+add_action( 'admin_footer-post-new.php', 'fon_media_uploaded_default' );
+add_action( 'admin_footer-post.php', 'fon_media_uploaded_default' );
+
+function fon_media_uploaded_default() { ?>
+<script type="text/javascript">
+jQuery(function($) {
+    var called = 0;
+    $('#wpcontent').ajaxStop(function() {
+        $('[value="uploaded"]').attr( 'selected', true ).parent().trigger('change');
+        called = 1;
+    });
+});
+</script>
+<?php }
