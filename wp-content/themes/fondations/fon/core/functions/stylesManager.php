@@ -1,4 +1,11 @@
 <?php
+add_action( 'init', 'fon_deploy_actions' );
+
+function fon_deploy_actions(){
+    if( !isset($_GET['fon']) ||  $_GET['fon'] != 'deploy' ) return;
+    $css_version = fon_update_css();
+}
+
 function fon_compress_css($css) {
     // remove comments, tabs, spaces, newlines, etc.
     $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', ' ', $css);
