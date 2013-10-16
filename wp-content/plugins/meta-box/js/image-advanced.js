@@ -1,7 +1,8 @@
 jQuery( function( $ )
 {
 	// Use only one frame for all upload fields
-	var frame;
+	var frame,
+		template = $( '#tmpl-rwmb-image-advanced' ).html();
 
 	$( 'body' ).on( 'click', '.rwmb-image-advanced-upload', function( e )
 	{
@@ -10,10 +11,9 @@ jQuery( function( $ )
 		var $uploadButton = $( this ),
 			$imageList = $uploadButton.siblings( '.rwmb-images' ),
 			maxFileUploads = $imageList.data( 'max_file_uploads' ),
-			msg = 'You may only upload ' + maxFileUploads + ' file';
+			msg = maxFileUploads > 1 ? rwmbFile.maxFileUploadsPlural : rwmbFile.maxFileUploadsSingle;
 
-		if ( maxFileUploads > 1 )
-			msg += 's';
+		msg = msg.replace( '%d', maxFileUploads );
 
 		// Create a frame only if needed
 		if ( !frame )
@@ -21,7 +21,7 @@ jQuery( function( $ )
 			frame = wp.media( {
 				className: 'media-frame rwmb-media-frame',
 				multiple : true,
-				title    : 'Select or Upload Media',
+				title    : rwmbImageAdvanced.frameTitle,
 				library  : {
 					type: 'image'
 				}
@@ -39,7 +39,8 @@ jQuery( function( $ )
 		{
 			// Get selections
 			var selection = frame.state().get( 'selection' ).toJSON(),
-				uploaded = $imageList.children().length;
+				uploaded = $imageList.children().length,
+				ids;
 
 			if ( maxFileUploads > 0 && ( uploaded + selection.length ) > maxFileUploads )
 			{
@@ -48,36 +49,39 @@ jQuery( function( $ )
 				alert( msg );
 			}
 
-			for ( var i in  selection )
+			// Get only files that haven't been added to the list
+			// Also prevent duplication when send ajax request
+			selection = _.filter( selection, function( attachment )
 			{
-				var attachment = selection[i];
+				return $imageList.children( 'li#item_' + attachment.id ).length == 0;
+			} );
+			ids = _.pluck( selection, 'id' );
+			console.log( selection );
 
-				// Check if image already attached
-				if ( $imageList.children( 'li#item_' + attachment.id ).length > 0 )
-					continue;
-
-				// Attach attachment to field and get HTML
+			if( ids.length > 0 )
+			{
 				var data = {
-					action       : 'rwmb_attach_media',
-					post_id      : $( '#post_ID' ).val(),
-					field_id     : $imageList.data( 'field_id' ),
-					attachment_id: attachment.id,
-					_ajax_nonce  : $uploadButton.data( 'attach_media_nonce' )
+					action			: 'rwmb_attach_media',
+					post_id			: $( '#post_ID' ).val(),
+					field_id		: $imageList.data( 'field_id' ),
+					attachment_ids	: ids,
+					_ajax_nonce  	: $uploadButton.data( 'attach_media_nonce' )
 				};
+
 				$.post( ajaxurl, data, function( r )
 				{
-					var r = wpAjax.parseAjaxResponse( r, 'ajax-response' );
-
-					if ( r.errors )
-						alert( r.responses[0].errors[0].message );
-					else
-						$imageList.removeClass( 'hidden' ).prepend( r.responses[0].data );
-
-					// Hide files button if reach max file uploads
-					if ( $imageList.children().length >= maxFileUploads )
-						$uploadButton.addClass( 'hidden' );
-				}, 'xml' );
+					if( r.success )
+					{
+						$imageList
+							.append( _.template( template, { attachments: selection }, {
+								evaluate:    /<#([\s\S]+?)#>/g,
+								interpolate: /\{\{\{([\s\S]+?)\}\}\}/g,
+								escape:      /\{\{([^\}]+?)\}\}(?!\})/g
+							} ) )
+							.trigger('update.rwmbFile');
+					}
+				}, 'json' );
 			}
 		} );
-	} );
+	} )
 } );

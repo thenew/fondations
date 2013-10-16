@@ -3,11 +3,33 @@
 function fon_register_connections() {
     if(!function_exists('p2p_register_connection_type')) return;
 
-    $terms = get_terms( 'role', array('hide_empty'=> false) );
+
+
+    // Connexions
+    $fon_connections = array(
+        // Post -> Users
+        array(
+            'name' => 'multiple_authors',
+            'from' => 'post',
+            'to' => 'user'
+            // 'to_query_vars' => array( 'role' => 'editor' )
+        )
+    );
+
+
+
+    foreach ($fon_connections as $args) {
+        p2p_register_connection_type($args);
+    }
+
+
+
+
+   /* $terms = get_terms( 'role', array('hide_empty'=> false) );
     $values = array();
     foreach ($terms as $term) {
         array_push($values, $term->name);
-    }
+    }*/
 
     p2p_register_connection_type( array(
         'name' => 'people_games',
@@ -32,6 +54,7 @@ function fon_register_connections() {
             // ),
         )
     ) );
+
 }
 
 add_action('p2p_init', 'fon_register_connections');

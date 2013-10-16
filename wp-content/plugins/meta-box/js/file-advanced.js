@@ -1,7 +1,6 @@
 jQuery( function( $ )
 {
-	// Use only one frame for all upload fields
-	var frame;
+	var template = $( '#tmpl-rwmb-file-advanced' ).html();
 
 	$( 'body' ).on( 'click', '.rwmb-file-advanced-upload', function( e )
 	{
@@ -9,32 +8,26 @@ jQuery( function( $ )
 
 		var $uploadButton = $( this ),
 			$fileList = $uploadButton.siblings( '.rwmb-uploaded' ),
-			fieldID = $fileList.data( 'field_id' ),
 			maxFileUploads = $fileList.data( 'max_file_uploads' ),
 			mimeType = $fileList.data( 'mime_type' ),
-			msg = 'You may only upload ' + maxFileUploads + ' file';
+			msg = maxFileUploads > 1 ? rwmbFile.maxFileUploadsPlural : rwmbFile.maxFileUploadsSingle,
+			frame,
+			frameOptions = {
+				className: 'media-frame rwmb-file-frame',
+				multiple: true,
+				title: rwmbFileAdvanced.frameTitle
+			};
 
-		if ( maxFileUploads > 1 )
-			msg += 's';
+		msg = msg.replace( '%d', maxFileUploads );
 
-		// Create a frame only if needed
-		if ( !frame )
+		// Create a media frame
+		if ( mimeType )
 		{
-			var frameOptions = ( {
-				className	: 'media-frame rwmb-file-frame',
-				multiple	: true,
-				title		: 'Select files'
-			} );
-
-			if ( mimeType )
-			{
-				frameOptions.library = {
-					type : mimeType
-				};
-			}
-
-			frame = wp.media( frameOptions );
+			frameOptions.library = {
+				type: mimeType
+			};
 		}
+		frame = wp.media( frameOptions );
 
 		// Open media uploader
 		frame.open();
@@ -47,7 +40,8 @@ jQuery( function( $ )
 		{
 			// Get selections
 			var selection = frame.state().get( 'selection' ).toJSON(),
-				uploaded = $fileList.children().length;
+				uploaded = $fileList.children().length,
+				ids;
 
 			if ( maxFileUploads > 0 && ( uploaded + selection.length ) > maxFileUploads )
 			{
@@ -56,35 +50,37 @@ jQuery( function( $ )
 				alert( msg );
 			}
 
-			for ( var i in  selection )
+			// Get only files that haven't been added to the list
+			// Also prevent duplication when send ajax request
+			selection = _.filter( selection, function( attachment )
 			{
-				var attachment = selection[i];
+				return $fileList.children( 'li#item_' + attachment.id ).length == 0;
+			} );
+			ids = _.pluck( selection, 'id' );
 
-				// Check if image already attached
-				if ( $fileList.children( 'li#item_' + attachment.id ).length > 0 )
-					continue;
-
+			if ( ids.length > 0 )
+			{
 				// Attach attachment to field and get HTML
 				var data = {
-					action       : 'rwmb_attach_file',
-					post_id      : $( '#post_ID' ).val(),
-					field_id     : $fileList.data( 'field_id' ),
-					attachment_id: attachment.id,
-					_ajax_nonce  : $uploadButton.data( 'attach_file_nonce' )
+					action: 'rwmb_attach_file',
+					post_id: $( '#post_ID' ).val(),
+					field_id: $fileList.data( 'field_id' ),
+					attachment_ids: ids,
+					_ajax_nonce: $uploadButton.data( 'attach_file_nonce' )
 				};
 				$.post( ajaxurl, data, function( r )
 				{
-					var r = wpAjax.parseAjaxResponse( r, 'ajax-response' );
-
-					if ( r.errors )
-						alert( r.responses[0].errors[0].message );
-					else
-						$fileList.removeClass( 'hidden' ).prepend( r.responses[0].data );
-
-					// Hide files button if reach max file uploads
-					if ( $fileList.children().length >= maxFileUploads )
-						$uploadButton.addClass( 'hidden' );
-				}, 'xml' );
+					if ( r.success )
+					{
+						$fileList
+							.append( _.template( template, { attachments: selection }, {
+								evaluate:    /<#([\s\S]+?)#>/g,
+								interpolate: /\{\{\{([\s\S]+?)\}\}\}/g,
+								escape:      /\{\{([^\}]+?)\}\}(?!\})/g
+							} ) )
+							.trigger( 'update.rwmbFile' );
+					}
+				}, 'json' );
 			}
 		} );
 	} );

@@ -13,8 +13,12 @@ if ( ! class_exists( 'RWMB_File_Field' ) )
 		 */
 		static function admin_enqueue_scripts()
 		{
+			wp_enqueue_style( 'rwmb-file', RWMB_CSS_URL . 'file.css', array(), RWMB_VER );
 			wp_enqueue_script( 'rwmb-file', RWMB_JS_URL . 'file.js', array( 'jquery', 'wp-ajax-response' ), RWMB_VER, true );
-			wp_enqueue_style( 'rwmb-file', RWMB_CSS_URL . 'file.css', array( ), RWMB_VER );
+			wp_localize_script( 'rwmb-file', 'rwmbFile', array(
+				'maxFileUploadsSingle' => __( 'You may only upload maximum %d file', 'rwmb' ),
+				'maxFileUploadsPlural' => __( 'You may only upload maximum %d files', 'rwmb' ),
+			) );
 		}
 
 		/**
@@ -82,9 +86,10 @@ if ( ! class_exists( 'RWMB_File_Field' ) )
 
 			// Uploaded files
 			$html = self::get_uploaded_files( $meta, $field );
-			$new_file_classes = array('new-files');
-			if ( ! empty( $field['max_file_uploads'] ) && count( $meta ) >= (int) $field['max_file_uploads']  )
+			$new_file_classes = array( 'new-files' );
+			if ( !empty( $field['max_file_uploads'] ) && count( $meta ) >= (int) $field['max_file_uploads'] )
 				$new_file_classes[] = 'hidden';
+
 			// Show form upload
 			$html .= sprintf(
 				'<div class="%s">
@@ -262,8 +267,6 @@ if ( ! class_exists( 'RWMB_File_Field' ) )
 		 */
 		static function meta( $meta, $post_id, $saved, $field )
 		{
-			global $wpdb;
-
 			$meta = RW_Meta_Box::meta( $meta, $post_id, $saved, $field );
 
 			if ( empty( $meta ) )
