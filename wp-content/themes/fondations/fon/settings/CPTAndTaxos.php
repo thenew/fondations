@@ -1,12 +1,7 @@
 <?php
-
-/* Custom taxonomies
-   ----------------------------- */
-
 $post = new Custom_Post_Type( 'Post' );
-$post->add_taxonomy( 'support' );
 
-/* Custom post types
+/* Custom post types & Custom taxonomies
    ----------------------------- */
 
 $game = new Custom_Post_Type( 'Game' );
@@ -14,5 +9,7 @@ $game->add_taxonomy( 'genre' );
 $game->add_taxonomy( 'support' );
 
 
-$people = new Custom_Post_Type( 'People' );
-$people->add_taxonomy( 'role' );
+$person = new Custom_Post_Type( 'Person' );
+$person->add_taxonomy( 'role' );
+
+$post->add_taxonomy( 'support' );
