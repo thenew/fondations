@@ -19,7 +19,7 @@
 .post-content del{ }
 .post-content ins{ }
 
-/* Classes des images */
+
 .alignleft{ display:inline; float:left;}
 .aligncenter{ clear:both; display:block; margin-left:auto; margin-right:auto;}
 .alignright{ display:inline; float:right;}
@@ -27,7 +27,7 @@
 .size-medium{ }
 .size-large{ }
 .size-full{ }
-.wp-caption{ } /* Légende de l'image */
+.wp-caption{ }
 .wp-caption img{ }
 .gallery{ }
 .gallery .gallery-item{ }
