@@ -4,7 +4,9 @@ $post = new Custom_Post_Type( 'Post' );
 /* Custom post types & Custom taxonomies
    ----------------------------- */
 
-$game = new Custom_Post_Type( 'Game' );
+$game = new Custom_Post_Type( 'Game', array(
+    'rewrite' => array( 'slug' => 'jeu' )
+) );
 $game->add_taxonomy( 'genre' );
 $game->add_taxonomy( 'support' );
 
