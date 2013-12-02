@@ -1,14 +1,20 @@
 <?php get_header(); ?>
 <div class="home-view">
     <div class="fon-slider-wrapper">
-        <div id="fon-slider" class="cf fon-slider">
+        <ul id="fon-slider" class="cf fon-slider">
+            <!-- <ul class="cf fon-slider-list"> -->
+                <li><img src="<?php echo ASSETS_URL; ?>/img/temp/placeholder1.png" alt=""></li>
+                <li><img src="<?php echo ASSETS_URL; ?>/img/temp/placeholder2.png" alt=""></li>
+                <li><img src="<?php echo ASSETS_URL; ?>/img/temp/placeholder3.png" alt=""></li>
+            <!-- </ul> -->
+        </ul>
+        <!-- <div class="fon-slider-gallery">
             <ul class="cf fon-slider-list">
-                <li data="1"><img src="http://placehold.it/400x200/22B573/ffffff&amp;text=1 Cupcake+ipsum" alt=""></li>
-                <li data="2"><img src="http://placehold.it/400x200/FF5D5D/ffffff&amp;text=2 dolor+sit" alt=""></li>
-                <li data="3"><img src="http://placehold.it/400x200/BADA55/ffffff&amp;text=3 Oat+cake" alt=""></li>
-                <li data="4"><img src="http://placehold.it/400x200/OFF1CE/ffffff&amp;text=4 Lipsum" alt=""></li>
+                <li><img src="<?php echo ASSETS_URL; ?>/img/temp/placeholder1.png" alt=""></li>
+                <li><img src="<?php echo ASSETS_URL; ?>/img/temp/placeholder2.png" alt=""></li>
+                <li><img src="<?php echo ASSETS_URL; ?>/img/temp/placeholder3.png" alt=""></li>
             </ul>
-        </div>
+        </div> -->
     </div>
     <div class="grid grid-3-1">
         <div>

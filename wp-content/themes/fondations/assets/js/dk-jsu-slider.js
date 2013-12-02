@@ -1,6 +1,6 @@
 /*
  * Plugin Name: Slider
- * Version: 1.4
+ * Version: 1.3.7
  * Plugin URL: https://github.com/Darklg/JavaScriptUtilities
  * JavaScriptUtilities Slider may be freely distributed under the MIT license.
  */
@@ -8,6 +8,11 @@
 /* ----------------------------------------------------------
    Slider
 ---------------------------------------------------------- */
+
+/*
+TODO :
+- Use existing pagination
+*/
 
 /*
 new dkJSUSlider($('target-slider'), {
@@ -27,25 +32,25 @@ var dkJSUSlider = new Class({
         keyboardActions: true,
         // 'fade' || 'horizontal'
         transitionType: 'fade'
-        /*transition: function(oldSlide, newSlide, nb, self) {
-            newSlide.setStyles({
-                'opacity': 0,
-                'z-index': 2
-            }).set("tween", {
-                duration: '300',
-                transition: 'linear',
-                onComplete: function() {
-                    oldSlide.setStyles({
-                        'z-index': 0
-                    });
-                    newSlide.setStyles({
-                        'z-index': 1
-                    });
-                    // Authorizing a new slide
-                    self.canSlide = 1;
-                }
-            }).tween("opacity", [0, 1]);
-        }*/
+        // transition: function(oldSlide, newSlide, nb, direction, self) {
+        //     newSlide.setStyles({
+        //         'opacity': 0,
+        //         'z-index': 2
+        //     }).set("tween", {
+        //         duration: '300',
+        //         transition: 'linear',
+        //         onComplete: function() {
+        //             oldSlide.setStyles({
+        //                 'z-index': 0
+        //             });
+        //             newSlide.setStyles({
+        //                 'z-index': 1
+        //             });
+        //             // Authorizing a new slide
+        //             self.canSlide = 1;
+        //         }
+        //     }).tween("opacity", [0, 1]);
+        // }
     },
     autoSlideTimeout: false,
     canSlide: 1,
@@ -96,11 +101,8 @@ var dkJSUSlider = new Class({
         this.settings = Object.merge({}, this.defaultSettings, settings);
     },
     setSlides: function() {
-        var dkJSUSlider = this;
-
-        this.sliderList = this.slider.getChildren()[0];
-        this.sliderList.addClass('dk-jsu-slider-list');
-        this.slides = this.sliderList.getChildren();
+        this.slides = this.slider.getChildren();
+        this.settings.sliderWidth = this.slider.getWidth();
         this.settings.nbSlides = this.slides.length;
         this.slides.each(function(el) {
             el.addClass('dk-jsu-slide');
@@ -109,46 +111,23 @@ var dkJSUSlider = new Class({
     setElements: function() {
         var settings = this.settings;
 
-        this.wrapper = new Element('div.dk-jsu-slider-wrapper')
-            .setStyles({
-                'height': '100%'
-            })
-            .wraps(this.slider);
+        this.wrapper = new Element('div.dk-jsu-slider-wrapper');
+        this.wrapper.wraps(this.slider);
 
         // Style slider
-
         this.slider.setStyles({
-            'position': 'relative',
-            'overflow': 'hidden',
-            'height': '100%'
-        });
-        this.sliderList.setStyles({
-            'height': this.slider.getHeight()
+            'position': 'relative'
         });
 
-        switch(this.settings.transitionType) {
-            case 'horizontal':
-                this.sliderList.setStyles({
-                    'position': 'absolute',
-                    'top': 0,
-                    'left': 0,
-                    'width': this.settings.nbSlides * this.slider.getWidth()
-                });
-                this.slides.setStyles({
-                    'float': 'left'
-                });
-                break;
-            case 'fade':
-                this.slides.setStyles({
-                    'position': 'absolute',
-                    'top': 0,
-                    'left': 0,
-                    'height': '100%',
-                    'width': '100%',
-                    'z-index': 0
-                });
-                break;
-        }
+        // Style slides
+        this.slides.setStyles({
+            'position': 'absolute',
+            'top': 0,
+            'left': 0,
+            'height': '100%',
+            'width': '100%',
+            'z-index': 0
+        });
 
         if (settings.showNavigation && settings.createNavigation) {
             // Set Navigation
@@ -244,28 +223,19 @@ var dkJSUSlider = new Class({
         clearTimeout(self.autoSlideTimeout);
         self.autoSlideTimeout = setTimeout(function() {
             self.gotoSlide('next');
-            self.autoSlideEvent();
         }, settings.autoSlideDuration);
     },
     gotoSlide: function(nb) {
-        var dkJSUSlider = this,
+        var self = this,
             settings = this.settings,
             oldNb = this.settings.currentSlide;
-
-        if(dkJSUSlider.isAnimated)
-            return;
-        dkJSUSlider.isAnimated = true;
 
         // Clearing timeout
         if (settings.autoSlide) {
             this.autoSlideEvent();
         }
 
-        if (this.canSlide !== 1 || nb == oldNb) {
-            return 0;
-        }
-
-        this.canSlide = 0;
+        var direction = nb;
 
         if (nb === 'prev') {
             nb = settings.currentSlide - 1;
@@ -275,84 +245,157 @@ var dkJSUSlider = new Class({
             nb = settings.currentSlide + 1;
         }
 
-        // Manage slider limits
-
-        switch(this.settings.transitionType) {
-            case 'horizontal':
-                if (nb == (settings.nbSlides)) {
-                    // init loop
-                    dkJSUSlider.slides = this.sliderList.getChildren();
-                    var firstSlide = dkJSUSlider.slides[0];
-                    firstSlide.clone().inject(dkJSUSlider.sliderList);
-                    firstSlide.destroy();
-                    nb -= 1;
-                    var left = -((nb-1) * this.slider.getWidth());
-                    dkJSUSlider.sliderList.setStyles({ 'margin-left': left });
-                }
-                if (nb <= 0) {
-                    // init loop
-                    dkJSUSlider.slides = this.sliderList.getChildren();
-                    var lastSlide = dkJSUSlider.slides[settings.nbSlides-1];
-                    lastSlide.clone().inject(dkJSUSlider.sliderList, 'top');
-                    lastSlide.destroy();
-                    nb += 1;
-                    var left = -((nb+1) * this.slider.getWidth());
-                    dkJSUSlider.sliderList.setStyles({ 'margin-left': left });
-                }
-
-                break;
-            case 'fade':
-                if (nb < 0) {
-                    nb = settings.nbSlides - 1;
-                }
-
-                if (nb >= settings.nbSlides) {
-                    nb = 0;
-                }
-
-                break;
+        if (nb < 0) {
+            nb = settings.nbSlides - 1;
         }
+
+        if (nb >= settings.nbSlides) {
+            nb = 0;
+        }
+
+        if (this.canSlide !== 1 || nb == oldNb) {
+            return 0;
+        }
+        this.canSlide = 0;
 
         oldSlide = this.slides[oldNb];
         newSlide = this.slides[nb];
 
         if (typeof this.settings.transition == 'function') {
-            this.settings.transition(oldSlide, newSlide, nb, this);
+            this.settings.transition(oldSlide, newSlide, nb, direction, this);
+            self.canSlide = 1;
         }
+
+        // Default transitions
         else {
-            // Default transition.
-            switch(settings.transitionType) {
+
+            switch(this.settings.transitionType) {
                 case 'horizontal':
-                    var left = -(nb * this.slider.getWidth());
-                    dkJSUSlider.sliderList.set("tween", {
+
+                    self.transitionX(oldSlide, newSlide, direction, this);
+                    break;
+
+                case 'fade':
+                    newSlide.setStyles({
+                        'opacity': 0,
+                        'z-index': 2
+                    }).set('tween', {
                         duration: '300',
                         transition: 'linear',
                         onComplete: function() {
-                            dkJSUSlider.isAnimated = false;
+                            oldSlide.setStyles({
+                                'z-index': 0
+                            });
+                            newSlide.setStyles({
+                                'z-index': 1
+                            });
+                            // Authorizing a new slide
+                            self.canSlide = 1;
                         }
-                    }).tween("margin-left", left);
-                    this.canSlide = 1;
-
-                    break;
-                case 'fade':
-                    oldSlide.setStyles({
-                        'z-index': 0
-                    });
-
-                    newSlide.setStyles({
-                        'z-index': 1
-                    });
-                    this.canSlide = 1;
-
+                    }).tween('opacity', [0, 1]);
                     break;
             }
+
         }
+
         settings.currentSlide = nb;
         if (settings.showPagination && this.pagers[nb]) {
             this.pagers.each(function(el) {
                 el.removeClass('current');
             });
             this.pagers[nb].addClass('current');
+        }
+    },
+    transitionX: function(oldSlide, newSlide, direction, self) {
+        var settings = self.settings;
+
+        oldSlide.setStyles({
+            'z-index': 1
+        }).set('tween', {
+            duration: '300',
+            transition: 'linear'
+        });
+
+        newSlide.setStyles({
+            'z-index': 2
+        }).set('tween', {
+            duration: '300',
+            transition: 'linear',
+            onComplete: function() {
+                oldSlide.setStyles({
+                    'z-index': 0
+                });
+                newSlide.setStyles({
+                    'z-index': 1
+                });
+                self.canSlide = 1;
+            }
+        });
+
+        switch(direction) {
+            case 'prev':
+            case 'left':
+
+                oldSlide.setStyles({
+                    'left': 'auto',
+                    'right': 0
+                }).tween('right', -settings.sliderWidth);
+
+                newSlide.setStyles({
+                    'left': 'auto',
+                    'right': settings.sliderWidth
+                }).tween('right', 0);
+                break;
+
+            case 'next':
+            case 'right':
+
+                oldSlide.setStyles({
+                    'right': 'auto',
+                    'left': 0
+                }).tween('left', -settings.sliderWidth);
+
+                newSlide.setStyles({
+                    'right': 'auto',
+                    'left': settings.sliderWidth
+                }).tween('left', 0);
+                break;
+        }
+    },
+    transitionTabX: function(oldSlide, newSlide, direction, self) {
+        var settings = self.settings;
+
+        newSlide.setStyles({
+            'left': 'auto',
+            'z-index': 2
+        }).set('tween', {
+            duration: '300',
+            transition: 'linear',
+            onComplete: function() {
+                oldSlide.setStyles({
+                    'z-index': 0
+                });
+                newSlide.setStyles({
+                    'z-index': 1
+                });
+                self.canSlide = 1;
+            }
+        });
+
+        switch(direction) {
+            case 'prev':
+            case 'left':
+                newSlide.setStyles({
+                    'right': settings.sliderWidth
+                }).tween('right', 0);
+                break;
+
+            case 'next':
+            case 'right':
+                newSlide.setStyles({
+                    'left': settings.sliderWidth
+                }).tween('left', 0);
+                break;
         }
     }
 });
