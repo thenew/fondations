@@ -9,6 +9,8 @@ window.addEvent('domready',function(){
         autoSlide: false,
         autoSlideDuration: 5000,
         transitionType: 'horizontal'
+        // gallery: 'fon-slider-gallery',
+        // galleryItemsPerPage: 4,
     });
 
 });

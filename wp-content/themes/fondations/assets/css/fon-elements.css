@@ -264,3 +264,9 @@ a {
     height: 200px;
     margin: 50px auto;
 }
+
+.fon-slider-wrapper .fon-slider {
+    width: 400px;
+    height: 200px;
+    overflow: hidden;
+}
