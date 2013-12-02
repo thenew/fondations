@@ -186,6 +186,7 @@ code {
 
 .fon_debug_log {
     position: relative;
+    width: 100%;
     height: 50px;
     padding: 5px;
     overflow-y: scroll;
@@ -193,8 +194,6 @@ code {
     -webkit-box-shadow: 0 5px 40px rgba(0,0,0,.6) inset;
     -moz-box-shadow: 0 5px 40px rgba(0,0,0,.6) inset;
     box-shadow: 0 5px 40px rgba(0,0,0,.6) inset;
-    -ms-box-shadow: 0 5px 40px rgba(0,0,0,.6) inset;
-    -o-box-shadow: 0 5px 40px rgba(0,0,0,.6) inset;
 }
 
 .fon_debug_log code,
@@ -287,20 +286,17 @@ ol.linenums li {
 .fon_debug_toolbar a {
     -webkit-transition: color .1s ease-in-out,background-color .1s ease-in-out;
     -moz-transition: color .1s ease-in-out,background-color .1s ease-in-out;
-    -o-transition: color .1s ease-in-out,background-color .1s ease-in-out;
     transition: color .1s ease-in-out,background-color .1s ease-in-out;
 }
 
 .fon_debug_log .actions > * {
     -webkit-transition: opacity .2s ease-in-out;
     -moz-transition: opacity .2s ease-in-out;
-    -o-transition: opacity .2s ease-in-out;
     transition: opacity .2s ease-in-out;
 }
 
 .fon_debug_toolbar .handler {
     -webkit-transition: box-shadow .2s ease-in-out;
     -moz-transition: box-shadow .2s ease-in-out;
-    -o-transition: box-shadow .2s ease-in-out;
     transition: box-shadow .2s ease-in-out;
 }

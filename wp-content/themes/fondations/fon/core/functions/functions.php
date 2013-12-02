@@ -57,9 +57,14 @@ function fon_get_attachment($page_id, $format) {
     wp_reset_query();
 }
 
-function fon_get_thumb_url($format = 'post-thumbnail', $post_id = null ) {
+function fon_get_thumb( $format = 'post-thumbnail', $post_id = null ) {
     $post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
-    $thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post_id), $format, false);
+    $thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $format, false );
+    return $thumb;
+}
+
+function fon_get_thumb_url( $format = 'post-thumbnail', $post_id = null ) {
+    $thumb = fon_get_thumb( $format, $post_id );
     return $thumb[0];
 }
 
