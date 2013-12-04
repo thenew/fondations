@@ -21,8 +21,9 @@ register_activation_hook(__FILE__, function(){
 // We use index.php with a query var.
 add_filter('rewrite_rules_array', function($rules) use($wp_rewrite) {
     global $fon_routes;
+    $new_routes = array();
     foreach ($fon_routes as $route => $action) {
-    $new_routes = array('^'.$route.'\/?$' => 'index.php?fon_action='.$action);
+        $new_routes['^'.$route.'\/?$'] = 'index.php?fon_action='.$action;
     }
     return $new_routes + $rules;
 });
