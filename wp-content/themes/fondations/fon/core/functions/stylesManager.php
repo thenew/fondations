@@ -30,7 +30,8 @@ function fon_update_css(){
     $css_content = '';
     // Inclusion des fichiers dans l'ordre
     foreach( $files as $file )
-        $css_content .= file_get_contents($file);
+        @chmod($file, 0777);
+        $css_content .= @file_get_contents($file);
     // Compression du CSS
     $css_content = fon_compress_css($css_content);
 
