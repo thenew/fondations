@@ -17,8 +17,7 @@ if ( ! class_exists( 'RWMB_Image_Field' ) )
 			parent::admin_enqueue_scripts();
 
 			wp_enqueue_style( 'rwmb-image', RWMB_CSS_URL . 'image.css', array(), RWMB_VER );
-
-			wp_enqueue_script( 'rwmb-image', RWMB_JS_URL . 'image.js', array( 'jquery-ui-sortable', 'wp-ajax-response' ), RWMB_VER, true );
+			wp_enqueue_script( 'rwmb-image', RWMB_JS_URL . 'image.js', array( 'jquery-ui-sortable' ), RWMB_VER, true );
 		}
 
 		/**
@@ -44,24 +43,18 @@ if ( ! class_exists( 'RWMB_Image_Field' ) )
 		{
 			$field_id = isset( $_POST['field_id'] ) ? $_POST['field_id'] : 0;
 			$order    = isset( $_POST['order'] ) ? $_POST['order'] : 0;
+			$post_id  = isset( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
 
 			check_ajax_referer( "rwmb-reorder-images_{$field_id}" );
 
 			parse_str( $order, $items );
-			$items = $items['item'];
-			$order = 1;
 
-			foreach ( $items as $item )
+			delete_post_meta( $post_id, $field_id );
+			foreach ( $items['item'] as $item )
 			{
-				wp_update_post(
-					array(
-						'ID'         => $item,
-						'menu_order' => $order++,
-					)
-				);
+				add_post_meta( $post_id, $field_id, $item, false );
 			}
-
-			RW_Meta_Box::ajax_response( __( 'Order saved', 'rwmb' ), 'success' );
+			wp_send_json_success();
 		}
 
 		/**
@@ -108,7 +101,7 @@ if ( ! class_exists( 'RWMB_Image_Field' ) )
 		{
 			$reorder_nonce = wp_create_nonce( "rwmb-reorder-images_{$field['id']}" );
 			$delete_nonce = wp_create_nonce( "rwmb-delete-file_{$field['id']}" );
-			$classes = array('rwmb-images', 'rwmb-uploaded');
+			$classes = array( 'rwmb-images', 'rwmb-uploaded' );
 			if ( count( $images ) <= 0  )
 				$classes[] = 'hidden';
 			$ul = '<ul class="%s" data-field_id="%s" data-delete_nonce="%s" data-reorder_nonce="%s" data-force_delete="%s" data-max_file_uploads="%s">';
@@ -180,22 +173,13 @@ if ( ! class_exists( 'RWMB_Image_Field' ) )
 		{
 			global $wpdb;
 
-			$meta = RW_Meta_Box::meta( $meta, $post_id, $saved, $field );
+			$meta = $wpdb->get_col( $wpdb->prepare( "
+				SELECT meta_value FROM $wpdb->postmeta
+				WHERE post_id = %d AND meta_key = '%s'
+				ORDER BY meta_id ASC
+			", $post_id, $field['id'] ) );
 
-			if ( empty( $meta ) )
-				return array();
-
-			$meta = implode( ',' , (array) $meta );
-
-			// Re-arrange images with 'menu_order'
-			$meta = $wpdb->get_col( "
-				SELECT ID FROM {$wpdb->posts}
-				WHERE post_type = 'attachment'
-				AND ID in ({$meta})
-				ORDER BY menu_order ASC
-			" );
-
-			return (array) $meta;
+			return empty( $meta ) ? array() : $meta;
 		}
 	}
 }

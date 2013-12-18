@@ -3,7 +3,7 @@
 Plugin Name: Meta Box
 Plugin URI: http://www.deluxeblogtips.com/meta-box
 Description: Create meta box for editing pages in WordPress. Compatible with custom post types since WP 3.0
-Version: 4.3.3
+Version: 4.3.6
 Author: Rilwis
 Author URI: http://www.deluxeblogtips.com
 License: GPL2+
@@ -13,7 +13,7 @@ License: GPL2+
 defined( 'ABSPATH' ) || exit;
 
 // Script version, used to add version for scripts and styles
-define( 'RWMB_VER', '4.3.3' );
+define( 'RWMB_VER', '4.3.4' );
 
 // Define plugin URLs, for fast enqueuing scripts and styles
 if ( ! defined( 'RWMB_URL' ) )
@@ -26,7 +26,6 @@ if ( ! defined( 'RWMB_DIR' ) )
 	define( 'RWMB_DIR', plugin_dir_path( __FILE__ ) );
 define( 'RWMB_INC_DIR', trailingslashit( RWMB_DIR . 'inc' ) );
 define( 'RWMB_FIELDS_DIR', trailingslashit( RWMB_INC_DIR . 'fields' ) );
-define( 'RWMB_CLASSES_DIR', trailingslashit( RWMB_INC_DIR . 'classes' ) );
 
 // Optimize code for loading plugin files ONLY on admin side
 // @see http://www.deluxeblogtips.com/?p=345
@@ -45,5 +44,6 @@ if ( is_admin() )
 	}
 
 	// Main file
-	require_once RWMB_CLASSES_DIR . 'meta-box.php';
+	require_once RWMB_INC_DIR . 'meta-box.php';
+	require_once RWMB_INC_DIR . 'init.php';
 }

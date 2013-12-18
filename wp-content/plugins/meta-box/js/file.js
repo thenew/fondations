@@ -54,30 +54,40 @@ jQuery( document ).ready( function( $ )
 
 		$.post( ajaxurl, data, function( r )
 		{
-			var res = wpAjax.parseAjaxResponse( r, 'ajax-response' );
-
-			if ( res.errors )
+			if ( !r.success )
 			{
-				alert( res.responses[0].errors[0].message );
+				alert( r.data );
+				return;
 			}
-			else
+
+			$parent.addClass( 'removed' );
+
+			// If transition events not supported
+			if (
+				!( 'ontransitionend' in window )
+				&& ( 'onwebkittransitionend' in window )
+				&& !( 'onotransitionend' in myDiv || navigator.appName == 'Opera' )
+			)
 			{
-				$parent.addClass( 'removed' );
-				//If transition events not supported
-				if( !('ontransitionend' in window) && ('onwebkittransitionend' in window) && !('onotransitionend' in myDiv || navigator.appName == 'Opera') ) 
-					$parent.remove();
+				$parent.remove();
 				$container.trigger( 'update.rwmbFile' );
 			}
-		}, 'xml' );
+
+			$( '.rwmb-uploaded' ).on( 'transitionend webkitTransitionEnd otransitionend', 'li.removed', function()
+			{
+				$( this ).remove();
+				$container.trigger( 'update.rwmbFile' );
+			} );
+		}, 'json' );
 
 		return false;
 	} );
-	
+
 	//Remove deleted file
 	$( '.rwmb-uploaded' ).on( 'transitionend webkitTransitionEnd otransitionend', 'li.removed', function() {
 		$( this ).remove();
 	});
-	
+
 	$( 'body' ).on( 'update.rwmbFile', '.rwmb-uploaded', function()
 	{
 		var $fileList = $( this ),

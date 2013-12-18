@@ -56,11 +56,11 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 			$this->fields     = &$this->meta_box['fields'];
 			$this->validation = &$this->meta_box['validation'];
 
-			// Allow users to show/hide (e.g. include/exclude) meta boxes
+			// Allow users to show/hide meta box
 			// 1st action applies to all meta boxes
 			// 2nd action applies to only current meta box
 			$show = true;
-			$show = apply_filters( 'rwmb_show', $show, $meta_box );
+			$show = apply_filters( 'rwmb_show', $show, $this->meta_box );
 			$show = apply_filters( "rwmb_show_{$this->meta_box['id']}", $show, $this->meta_box );
 			if ( !$show )
 				return;
@@ -68,23 +68,17 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 			// Enqueue common styles and scripts
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
-			// All fields
-			$fields = self::get_fields( $this->fields );
-
 			// Add additional actions for fields
+			$fields = self::get_fields( $this->fields );
 			foreach ( $fields as $field )
 			{
 				$class = self::get_class_name( $field );
-
 				if ( method_exists( $class, 'add_actions' ) )
 					call_user_func( array( $class, 'add_actions' ) );
 			}
 
 			// Add meta box
-			foreach ( $this->meta_box['pages'] as $page )
-			{
-				add_action( "add_meta_boxes_{$page}", array( $this, 'add_meta_boxes' ) );
-			}
+			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 
 			// Hide meta box if it's set 'default_hidden'
 			add_filter( 'default_hidden_meta_boxes', array( $this, 'hide' ), 10, 2 );
@@ -156,9 +150,7 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 			{
 				$all_fields[] = $field;
 				if ( isset( $field['fields'] ) )
-				{
 					$all_fields = array_merge( $all_fields, self::get_fields( $field['fields'] ) );
-				}
 			}
 
 			return $all_fields;
@@ -236,7 +228,7 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 
 			foreach ( $this->fields as $field )
 			{
-				$meta = self::apply_field_class_filters( $field, 'meta', '', $post->ID, $saved );
+				$meta = self::apply_field_filters( $field, 'meta', '', $post->ID, $saved );
 				echo self::show_field( $field, $meta );
 			}
 
@@ -289,7 +281,7 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 			$meta = apply_filters( "rwmb_{$type}_meta", $meta );
 			$meta = apply_filters( "rwmb_{$id}_meta", $meta );
 
-			$begin = self::apply_field_class_filters( $field, 'begin_html', '', $meta );
+			$begin = self::apply_field_filters( $field, 'begin_html', '', $meta );
 
 			// Apply filter to field begin HTML
 			// 1st filter applies to all fields
@@ -324,7 +316,7 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 					$input_html = '<div class="rwmb-clone">';
 
 					// Call separated methods for displaying each type of field
-					$input_html .= self::apply_field_class_filters( $sub_field, 'html', '', $meta_data );
+					$input_html .= self::apply_field_filters( $sub_field, 'html', '', $meta_data );
 
 					// Apply filter to field HTML
 					// 1st filter applies to all fields with the same type
@@ -341,7 +333,7 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 			else
 			{
 				// Call separated methods for displaying each type of field
-				$field_html = self::apply_field_class_filters( $field, 'html', '', $meta );
+				$field_html = self::apply_field_filters( $field, 'html', '', $meta );
 
 				// Apply filter to field HTML
 				// 1st filter applies to all fields with the same type
@@ -350,7 +342,7 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 				$field_html = apply_filters( "rwmb_{$id}_html", $field_html, $field, $meta );
 			}
 
-			$end = self::apply_field_class_filters( $field, 'end_html', '', $meta );
+			$end = self::apply_field_filters( $field, 'end_html', '', $meta );
 
 			// Apply filter to field end HTML
 			// 1st filter applies to all fields
@@ -514,7 +506,7 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 				$new  = isset( $_POST[$name] ) ? $_POST[$name] : ( $field['multiple'] ? array() : '' );
 
 				// Allow field class change the value
-				$new = self::apply_field_class_filters( $field, 'value', $new, $old, $post_id );
+				$new = self::apply_field_filters( $field, 'value', $new, $old, $post_id );
 
 				// Use filter to change field value
 				// 1st filter applies to all fields with the same type
@@ -523,7 +515,7 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 				$new = apply_filters( "rwmb_{$name}_value", $new, $field, $old );
 
 				// Call defined method to save meta value, if there's no methods, call common one
-				self::do_field_class_actions( $field, 'save', $new, $old, $post_id );
+				self::do_field_actions( $field, 'save', $new, $old, $post_id );
 			}
 
 			// After save action
@@ -569,6 +561,15 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 			}
 			else
 			{
+				if ( $field['clone'] )
+				{
+					$new = (array) $new;
+					foreach ( $new as $k => $v )
+					{
+						if ( '' === $v )
+							unset( $new[$k] );
+					}
+				}
 				update_post_meta( $post_id, $name, $new );
 			}
 		}
@@ -614,24 +615,23 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 			foreach ( $fields as &$field )
 			{
 				$field = wp_parse_args( $field, array(
-					'multiple'   => false,
-					'clone'      => false,
-					'std'        => '',
-					'desc'       => '',
-					'format'     => '',
-					'before'     => '',
-					'after'      => '',
-					'field_name' => isset( $field['id'] ) ? $field['id'] : '',
-					'required'   => false
+					'multiple'      => false,
+					'clone'         => false,
+					'std'           => '',
+					'desc'          => '',
+					'format'        => '',
+					'before'        => '',
+					'after'         => '',
+					'field_name'    => isset( $field['id'] ) ? $field['id'] : '',
+					'required'      => false,
+					'placeholder'   => ''
 				) );
 
 				// Allow field class add/change default field values
-				$field = self::apply_field_class_filters( $field, 'normalize_field', $field );
+				$field = self::apply_field_filters( $field, 'normalize_field', $field );
 
-				if( isset( $field['fields'] ) )
-				{
+				if ( isset( $field['fields'] ) )
 					$field['fields'] = self::normalize_fields( $field['fields'] );
-				}
 			}
 
 			return $fields;
@@ -646,9 +646,7 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 		 */
 		static function get_class_name( $field )
 		{
-			$type  = ucwords( $field['type'] );
-			$class = "RWMB_{$type}_Field";
-
+			$class = 'RWMB_' . ucwords( $field['type'] ) . '_Field';
 			if ( class_exists( $class ) )
 				return $class;
 
@@ -659,12 +657,12 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 		 * Apply filters by field class, fallback to RW_Meta_Box method
 		 *
 		 * @param array  $field
-		 * @param string $method_name
+		 * @param string $method
 		 * @param mixed  $value
 		 *
 		 * @return mixed $value
 		 */
-		static function apply_field_class_filters( $field, $method_name, $value )
+		static function apply_field_filters( $field, $method, $value )
 		{
 			$args   = array_slice( func_get_args(), 2 );
 			$args[] = $field;
@@ -672,14 +670,10 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 			// Call:     field class method
 			// Fallback: RW_Meta_Box method
 			$class = self::get_class_name( $field );
-			if ( method_exists( $class, $method_name ) )
-			{
-				$value = call_user_func_array( array( $class, $method_name ), $args );
-			}
-			elseif ( method_exists( __CLASS__, $method_name ) )
-			{
-				$value = call_user_func_array( array( __CLASS__, $method_name ), $args );
-			}
+			if ( method_exists( $class, $method ) )
+				$value = call_user_func_array( array( $class, $method ), $args );
+			elseif ( method_exists( __CLASS__, $method ) )
+				$value = call_user_func_array( array( __CLASS__, $method ), $args );
 
 			return $value;
 		}
@@ -688,42 +682,14 @@ if ( ! class_exists( 'RW_Meta_Box' ) )
 		 * Call field class method for actions, fallback to RW_Meta_Box method
 		 *
 		 * @param array  $field
-		 * @param string $method_name
+		 * @param string $method
 		 *
 		 * @return mixed
 		 */
-		static function do_field_class_actions( $field, $method_name )
+		static function do_field_actions( $field, $method )
 		{
-			$args   = array_slice( func_get_args(), 2 );
-			$args[] = $field;
-
-			// Call:     field class method
-			// Fallback: RW_Meta_Box method
-			$class = self::get_class_name( $field );
-			if ( method_exists( $class, $method_name ) )
-			{
-				call_user_func_array( array( $class, $method_name ), $args );
-			}
-			elseif ( method_exists( __CLASS__, $method_name ) )
-			{
-				call_user_func_array( array( __CLASS__, $method_name ), $args );
-			}
-		}
-
-		/**
-		 * Format Ajax response
-		 *
-		 * @param string $message
-		 * @param string $status
-		 *
-		 * @return void
-		 */
-		static function ajax_response( $message, $status )
-		{
-			$response = array( 'what' => 'meta-box' );
-			$response['data'] = 'error' === $status ? new WP_Error( 'error', $message ) : $message;
-			$x = new WP_Ajax_Response( $response );
-			$x->send();
+			$args = func_get_args();
+			call_user_func_array( array( __CLASS__, 'apply_field_filters' ), $args );
 		}
 
 		/**

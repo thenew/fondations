@@ -47,3 +47,9 @@ function remove_box() {
    remove_meta_box('linkadvanceddiv','link','normal');
 
 }
+
+function add_my_themes() {
+    wp_admin_css_color( 'fondations', _x( 'Fondations', 'admin color scheme' ), ASSETS_URL . '/css-admin/fondations-colors.css', array( '#25282b', '#363b3f', '#F89C8F', '#369492' ) );
+}
+add_action( 'admin_init', 'add_my_themes', 1 );
+
