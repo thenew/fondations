@@ -1,5 +1,28 @@
 <?php
 
+function fon_slugify( $text ) {
+  // replace non letter or digits by -
+  $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+
+  // trim
+  $text = trim($text, '-');
+
+  // transliterate
+  $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+  // lowercase
+  $text = strtolower($text);
+
+  // remove unwanted characters
+  $text = preg_replace('~[^-\w]+~', '', $text);
+
+  if ( empty( $text) ) {
+    return 'n-a';
+  }
+
+  return $text;
+}
+
 // AJAX search TEST non utilisé parce que le retour ne s'affiche pas
 function fon_toto($query){
     if(is_admin() || !$query->is_main_query() || !$query->get('s'))
@@ -57,16 +80,29 @@ function fon_get_attachment($page_id, $format) {
     wp_reset_query();
 }
 
+/**
+ * Get thumbnail
+ * @param  string $format
+ * @param  int    $post_id
+ * @return array
+ */
 function fon_get_thumb( $format = 'post-thumbnail', $post_id = null ) {
     $post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
     $thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $format, false );
     return $thumb;
 }
 
+/**
+ * Get thumbnail url
+ * @param  string $format
+ * @param  int    $post_id
+ * @return string
+ */
 function fon_get_thumb_url( $format = 'post-thumbnail', $post_id = null ) {
     $thumb = fon_get_thumb( $format, $post_id );
     return $thumb[0];
 }
+
 
 function fon_upload_files($imgs) {
     if(!is_array($imgs)) return;
@@ -122,3 +158,102 @@ function fon_upload_files($imgs) {
     }
 }
 
+/**
+ * Get post by slug or id
+ * @param  string|int $post_name slug or id
+ * @return post
+ */
+function fon_get_post_by_postname( $post_name ) {
+    if( !is_numeric( $post_name ) ) {
+        $postname_args = array(
+            'name'           => $post_name,
+            'post_type'      => 'any',
+            'post_status'    => 'any',
+            'posts_per_page' => 1
+        );
+        $postname_posts = get_posts( $postname_args );
+        if( $postname_posts ) {
+            $post = $postname_posts[0];
+        }
+
+    }
+    elseif( is_numeric($post_name) ) {
+        $post = get_post( (int)$post_name );
+    }
+
+    return $post;
+}
+
+
+// WP Menu
+
+/**
+ * get WP Menu
+ * @param  string $location
+ * @return [type] $menu
+ */
+function fon_get_wp_menu( $location ) {
+    if(!$location) return;
+
+    $locations = get_nav_menu_locations();
+    if(empty($locations[$location])) return;
+
+    $menu_id = $locations[$location];
+
+    $menu = wp_get_nav_menu_items($menu_id);
+
+    return $menu;
+}
+
+function fon_get_wp_menu_title( $menu_item ){
+    switch( $menu_item->type ){
+        case 'taxonomy':
+            $title = $menu_item->title;
+            break;
+
+        case 'post_type':
+            $title = get_the_title( $menu_item->object_id );
+            break;
+
+        default :
+            $title = $menu_item->title;
+            break;
+    }
+    return $title;
+}
+
+/**
+ * Get WP Menu(s) by id
+ * @param  int|array $ids
+ * @return object
+ */
+function fon_get_wp_menu_by_id( $ids ) {
+    if ( ! is_array( $ids ) ) {
+        $ids = array( $ids );
+    }
+
+    foreach ( $ids as $id ) {
+        $menu = array();
+        $menu_id = get_post_meta( $id, '_menu_item_object_id', 1 );
+        $menu_object = get_post_meta( $id, '_menu_item_object', 1 );
+        $menu_type = get_post_meta( $id, '_menu_item_type', 1 );
+        if ( 'taxonomy' == $menu_type ) {
+            $menu_object = get_term_by( 'id', $menu_id, $menu_object );
+            $menu['id'] = $menu_object->term_id;
+            $menu['title'] = $menu_object->name;
+        } else if ( 'post_type' == $menu_type || 'custom' == $menu_type ) {
+            $menu_object = get_post( $menu_id );
+            $menu['id'] = $menu_object->ID;
+            $menu['title'] = get_the_title( $menu_object->ID );
+        } else {
+            continue;
+        }
+        $menu['object'] = $menu_object;
+        $menus[] = $menu;
+    }
+    if ( count( $menus ) < 2 ) {
+        return $menus[0];
+    } else {
+        return $menus;
+    }
+}

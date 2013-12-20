@@ -35,7 +35,7 @@ define('ENV_DEV', fon_define_env_dev());
 /* core */
 foreach (glob(FON_PATH.'/core/admin/*.php') as $file) { if(!is_dir($file)) require_once $file; }
 foreach (glob(FON_PATH.'/core/classes/*.php') as $file) { if(!is_dir($file)) require_once $file; }
-foreach (glob(FON_PATH.'/core/functions/*.php') as $file) { if(!is_dir($file)) require_once $file; }
+foreach (glob(FON_PATH.'/core/system/*.php') as $file) { if(!is_dir($file)) require_once $file; }
 
 /* settings */
 foreach (glob(FON_PATH.'/settings/*.php') as $file) { if(!is_dir($file)) require_once $file; }
