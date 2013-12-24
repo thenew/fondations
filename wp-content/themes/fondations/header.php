@@ -18,10 +18,13 @@
 
 <body <?php body_class(); ?>>
     <header class="header">
-        <?php if(is_home()): ?>
-            <div class="home-logo">
-                <h1 class="logo">Fondations</h1>
-            </div>
-        <?php endif; ?>
+        <div class="home-logo">
+            <h1 class="logo">Fondations</h1>
+        </div>
     </header>
+    <nav class="header-nav">
+        <?php
+        fon_wp_menu( 'header-menu' );
+        ?>
+    </nav>
     <div class="main">

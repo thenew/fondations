@@ -108,3 +108,27 @@ function random_shapes(shape, el, min, max) {
         nb--;
     }
 }
+
+// replace images with hi-res version
+$$('*[data-full-src]').each(function(el) {
+    var full = el.get('data-full-src');
+    var myImage = Asset.image(full, {
+        onLoad: function() {
+
+            var oldBg = el.getStyle('background-image');
+            if( oldBg !== 'none') {
+                setTimeout(function() {
+                        el.setStyles({
+                            'background-image': 'url('+full+'), ' + oldBg
+                        });
+                }, 200);
+                setTimeout(function() {
+                        el.setStyles({
+                            'background-image': 'url('+full+')'
+                        });
+                }, 1000);
+            }
+
+        }
+    });
+});

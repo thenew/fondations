@@ -1,1 +1,6 @@
-<?php require(TEMPLATEPATH.'/tpl/page.php');
+<?php
+get_header();
+?>
+Archives
+<?php
+get_footer();

@@ -1,10 +1,11 @@
 <?php
 
-// Thumbnails : active theme support
+// active theme support
 add_action( 'after_setup_theme', 'fon_add_theme_support' );
 function fon_add_theme_support() {
-    add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'post-thumbnails', 'menus' );
 }
+
 
 // Désactive les widgets par défaut dans l'admin Wordpress
 add_action( 'widgets_init', 'unregister_default_wp_widgets' );

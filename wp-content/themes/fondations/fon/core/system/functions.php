@@ -205,6 +205,27 @@ function fon_get_wp_menu( $location ) {
     return $menu;
 }
 
+/**
+ * display WP Menu in HTML list
+ * @param  string $location
+ * @param  boolean $echo echo or return
+ * @return string HTML template
+ */
+function fon_wp_menu( $location, $echo = true ) {
+    $tpl = '<ul>';
+    $menu = fon_get_wp_menu( $location );
+    foreach ($menu as $item) {
+        $tpl .= '<li><a href="'.$item->url.'" >'.$item->title.'</a></li>';
+    }
+    $tpl .= '</ul>';
+
+    if ( $echo ) {
+        echo $tpl;
+    } else {
+        return $tpl;
+    }
+}
+
 function fon_get_wp_menu_title( $menu_item ){
     switch( $menu_item->type ){
         case 'taxonomy':
