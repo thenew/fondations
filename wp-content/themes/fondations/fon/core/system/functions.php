@@ -42,23 +42,29 @@ function fon_toto($query){
 
 
 function fon_pagination(){
-  global $wp_query;
-  $total_pages = $wp_query->max_num_pages;
-  if($total_pages > 1){
-    $current_page = max(1, get_query_var('paged'));
+    global $wp_query;
 
-    echo '<div class="cssn_pagination fon-pagination">';
-      echo paginate_links(array(
-        'base' => get_pagenum_link(1) . '%_%',
-        'format' => 'page/%#%',
-        'current' => $current_page,
-        'total' => $total_pages,
-        'type' => 'list',
-        'prev_text' => __('Prev'),
-        'next_text' => __('Next')
-      ));
-    echo '</div>';
-  }
+    $total_pages = $wp_query->max_num_pages;
+
+    if ( $wp_query->max_num_pages < 2 )
+        return;
+
+    $current_page = max( 1, get_query_var('paged') );
+    ?>
+    <div class="fon-pagination">
+        <?php
+        echo paginate_links( array(
+            'base' => get_pagenum_link(1) . '%_%',
+            'format' => 'page/%#%',
+            'current' => $current_page,
+            'total' => $wp_query->max_num_pages,
+            'type' => 'list',
+            'prev_text' => __('Prev'),
+            'next_text' => __('Next')
+        ) );
+        ?>
+    </div>
+    <?php
 }
 
 function fon_get_attachment($page_id, $format) {
@@ -86,7 +92,7 @@ function fon_get_attachment($page_id, $format) {
  * @param  int    $post_id
  * @return array
  */
-function fon_get_thumb( $format = 'post-thumbnail', $post_id = null ) {
+function fon_get_thumb( $format = 'thumbnail', $post_id = null ) {
     $post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
     $thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $format, false );
     return $thumb;
@@ -98,9 +104,11 @@ function fon_get_thumb( $format = 'post-thumbnail', $post_id = null ) {
  * @param  int    $post_id
  * @return string
  */
-function fon_get_thumb_url( $format = 'post-thumbnail', $post_id = null ) {
+function fon_get_thumb_url( $format = 'thumbnail', $post_id = null ) {
     $thumb = fon_get_thumb( $format, $post_id );
-    return $thumb[0];
+    if ( isset( $thumb[0] ) ) {
+        return $thumb[0];
+    }
 }
 
 
@@ -212,10 +220,21 @@ function fon_get_wp_menu( $location ) {
  * @return string HTML template
  */
 function fon_wp_menu( $location, $echo = true ) {
-    $tpl = '<ul>';
+    $tpl = '<ul class="wp-menu list cf">';
+    $is_current = false;
+    $current = 'current';
     $menu = fon_get_wp_menu( $location );
     foreach ($menu as $item) {
-        $tpl .= '<li><a href="'.$item->url.'" >'.$item->title.'</a></li>';
+
+        // Post type archive
+        if ( 'cpt-archive' == $item->object && ( is_post_type_archive( $item->type ) || is_singular( $item->type ) ) ) {
+            $is_current = true;
+        }
+        else if ( 'page' == $item->object && is_single( $item->ID ) ) {
+            $is_current = true;
+        }
+
+        $tpl .= '<li class="item '.($is_current ? $current : '').'"><a href="'.$item->url.'" >'.$item->title.'</a></li>';
     }
     $tpl .= '</ul>';
 
@@ -277,4 +296,11 @@ function fon_get_wp_menu_by_id( $ids ) {
     } else {
         return $menus;
     }
+}
+
+function truncate( $text = ' ', $chars = 150, $hellip = "&hellip;" ) {
+    $text = substr( $text, 0, $chars );
+    $text = substr( $text, 0, strrpos( $text, ' ' ) );
+    $text = $text . ' ' . $hellip;
+    return $text;
 }

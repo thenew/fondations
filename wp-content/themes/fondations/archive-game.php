@@ -17,14 +17,18 @@
             ?></h1>
         </header>
 
-        <ul class="posts-list">
-            <?php while ( have_posts() ) : the_post(); ?>
+        <ul class="cf games-list">
+            <?php while ( have_posts() ) : the_post();
+                $thumb = fon_get_thumb();
+                // width & height
+                $thumb_url = $thumb[0];
+                ?>
                 <li class="item">
-                    <article id="post-<?php the_ID(); ?>" <?php post_class( 'cf-media loop-short' ); ?>>
+                    <article id="post-<?php the_ID(); ?>" <?php post_class( 'loop-short' ); ?>>
                         <div class="thumb post-thumbnail">
-                            <img src="<?php echo fon_get_thumb_url(); ?>" alt="<?php the_title_attribute(); ?>" />
+                            <img src="<?php echo $thumb_url; ?>" alt="<?php the_title_attribute(); ?>" />
                         </div>
-                        <div class="post-texts">
+                        <!-- <div class="post-texts">
                             <h2 class="post-title">
                                 <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                             </h2>
@@ -36,7 +40,7 @@
                                 <span class="post-date"><?php the_date(); ?></span>
                                 <?php edit_post_link( __( 'Edit', 'twentythirteen' ), '<span class="edit-link">', '</span>' ); ?>
                             </div>
-                        </div>
+                        </div> -->
                     </article>
                 </li>
             <?php endwhile; ?>

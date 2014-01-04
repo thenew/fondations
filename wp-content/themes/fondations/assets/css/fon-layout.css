@@ -2,8 +2,21 @@ body {
     background: url(../img/bg.png) repeat #eee;
 }
 
-.main {
-    width: 90%;
+.wrap {
+    /*width: 90%;*/
     margin: 0 auto;
     max-width: 1000px;
+}
+
+.main {
+    min-height: 500px;
+}
+
+.footer {
+    padding: 15px 0;
+    width: 100%;
+    font-size: 20px;
+    color: #222;
+    /*background: #E3493E;*/
+    background: rgba(0,0,0,.2);
 }

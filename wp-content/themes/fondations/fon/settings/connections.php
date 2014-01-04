@@ -32,6 +32,18 @@ function fon_register_connections() {
                     'values' => $roles
                 )
             )
+        ),
+        array(
+            'name' => 'saga',
+            'from' => 'game',
+            'to' => 'game',
+            'reciprocal' => true,
+            'fields' => array(
+                'role' => array(
+                    'title' => 'Nom',
+                    'type' => 'text'
+                )
+            )
         )
     );
 

@@ -1,11 +1,12 @@
-<?php get_header(); ?>
-<div class="span9">
-    <?php the_title(); ?>
-    <?php the_content(); ?>
-
+<?php
+get_header();
+the_post();
+?>
+<div class="single-box">
+    <h1 class="post-title"><?php the_title(); ?></h1>
+    <div class="blabla post-content">
+        <?php the_content(); ?>
+    </div>
 </div>
-<div class="span3">
-    <?php get_sidebar(); ?>
-</div>
-<?php 
+<?php
 get_footer();

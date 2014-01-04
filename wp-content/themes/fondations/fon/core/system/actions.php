@@ -1,6 +1,6 @@
 <?php
 
-
+// Add fonThemeUrl JS variable
 add_action('admin_head', 'fon_syntax_buttons_plus');
 
 function fon_syntax_buttons_plus(){
@@ -18,3 +18,5 @@ function fon_add_cpt_to_tags_archives( $query ) {
     }
 }
 // add_filter( 'pre_get_posts', 'fon_add_cpt_to_tags_archives' );
+
+// TODO add tags (ou categories) and credits fields to media

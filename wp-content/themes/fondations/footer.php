@@ -1,5 +1,8 @@
     </div><!-- .main -->
-    <footer>
+    <footer class="footer">
+        <div class="wrap">
+            Du beau jeu
+        </div>
     </footer>
 
     <!--[if lte IE 8]>

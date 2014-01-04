@@ -156,22 +156,32 @@ a {
 }
 
 /*  --------------------------------------------------
-  Hacks
+  Clearfix
   -------------------------------------------------- */
 
 /* Micro clearfix hack */
+.cf-media:before,
+.cf-media:after,
 .cf:before,
 .cf:after {
     content: "";
     display: table;
 }
 
+.cf-media:after,
 .cf:after {
     clear: both;
 }
 
+.cf-media,
 .cf {
     zoom: 1;
+}
+
+/* cf-media */
+.cf-media .thumb {
+    float:left;
+    margin-right: 10px;
 }
 
 
@@ -181,6 +191,14 @@ a {
 
 .fon-form input {
     font-family: 'Arial',sans-serif;
+}
+
+.fon-button {
+    padding: 2px 4px;
+    border: 1px solid #E1E1E8;
+    border-radius: 3px;
+    color: #dc3522;
+    background-color: #F7F7F9;
 }
 
 /* -------------------------------------------------------

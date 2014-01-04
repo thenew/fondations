@@ -19,12 +19,13 @@
 <body <?php body_class(); ?>>
     <header class="header">
         <div class="home-logo">
-            <h1 class="logo">Fondations</h1>
+            <?php $logo_tag = ( is_home() ) ? 'h1' : 'div'; ?>
+            <<?php echo $logo_tag; ?> class="logo"><a href="<?php echo site_url(); ?>">Fondations</a></<?php echo $logo_tag; ?>>
         </div>
     </header>
-    <nav class="header-nav">
+    <nav class="header-nav nav-menu">
         <?php
         fon_wp_menu( 'header-menu' );
         ?>
     </nav>
-    <div class="main">
+    <div class="main wrap">

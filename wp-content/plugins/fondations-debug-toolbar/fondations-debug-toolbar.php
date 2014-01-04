@@ -2,7 +2,7 @@
 /*
 Plugin Name: Fondations Debug Toolbar
 Plugin URI: http://thenew.fr
-Description: 
+Description:
 Version: 0.1
 Author: Rémy Barthez
 Author URI: http://thenew.fr
@@ -35,7 +35,7 @@ function fonbar_CSS() {
     $url = FONBAR_BASENAME_PLUGIN_PATH.'/assets/css/fondations-debug-toolbar.css';
     // echo "<link href='$url' rel='stylesheet' type='text/css' />";
     wp_enqueue_style('fonbar_CSS', $url, '', '1.0');
-} 
+}
 
 function fonbar_scripts() {
   wp_enqueue_script('resizableBox', FONBAR_BASENAME_PLUGIN_PATH.'/assets/js/resizableBox.js', '', 1.0, true);
@@ -46,9 +46,9 @@ function fonbar_main() {
 
 }
 
-add_action('wp_footer', 'fonbar_render');
-function fonbar_render() {
-  if (!is_admin() && WP_DEBUG){
+add_action('wp_footer', 'fonbar_init');
+function fonbar_init() {
+    if ( is_admin() || ! WP_DEBUG ) return;
+
     fon_debug_toolbar();
-}
 }

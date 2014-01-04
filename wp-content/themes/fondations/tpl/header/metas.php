@@ -4,6 +4,7 @@ if(is_singular()) {
     $title = get_the_title();
     $description = strip_tags(strip_shortcodes($post->post_content));
     $url = get_permalink();
+    // TODO get fon views
 } else {
     $title = wp_title('-', 0);
     $description = get_bloginfo('description');

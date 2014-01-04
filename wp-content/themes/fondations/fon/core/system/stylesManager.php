@@ -29,9 +29,10 @@ function fon_update_css(){
 
     $css_content = '';
     // Inclusion des fichiers dans l'ordre
-    foreach( $files as $file )
+    foreach( $files as $file ) {
         @chmod($file, 0777);
         $css_content .= @file_get_contents($file);
+    }
     // Compression du CSS
     $css_content = fon_compress_css($css_content);
 
@@ -86,7 +87,7 @@ function fon_menu_styleManager(){
     ?>
     <h3>CSS minifiés</h3>
     <?php
-    if( isset($_POST) && isset($_POST['submit']) && $_POST['submit'] == 'ok' ) {
+    if( isset( $_POST ) && isset( $_POST['fon_refresh_css'] ) && $_POST['fon_refresh_css'] == 'ok' ) {
         $css_version = fon_update_css();
         if($css_version) {
             ?>
@@ -97,11 +98,12 @@ function fon_menu_styleManager(){
         }
     }
     ?>
-    <form name="fon-refresh-css" action="" method="POST" class="fon-form">
+    <form name="fon_refresh_css" action="" method="POST" class="fon-form">
         <div class="form-field">
+            <p>Vous pouvez aussi ajouter à l'URL <code>?fon=deploy</code></p>
         </div>
         <p class="submit">
-            <button type="submit" name="submit" id="submit" value="ok" class="button button-primary">Mettre à jour les styles CSS</button>
+            <button type="submit" name="fon_refresh_css" id="submit" value="ok" class="button button-primary">Mettre à jour les styles CSS</button>
         </p>
     </form>
     <?php

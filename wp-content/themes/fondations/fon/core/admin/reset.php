@@ -3,7 +3,8 @@
 // active theme support
 add_action( 'after_setup_theme', 'fon_add_theme_support' );
 function fon_add_theme_support() {
-    add_theme_support( 'post-thumbnails', 'menus' );
+    add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'menus' );
 }
 
 

@@ -1,0 +1,136 @@
+@charset "UTF-8";
+
+/* ----------------------------------------------------------
+   Content styles (front and admin tinyMCE)
+   ------------------------------------------------------- */
+
+.wp-editor,
+.blabla {
+    font-family: 'Georgia', serif;
+    font-size: 19px;
+    line-height: 1.5;
+    color: #70787f;
+}
+
+.wp-editor p,
+.wp-editor li,
+.blabla p,
+.blabla li {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+}
+
+.wp-editor p,
+.blabla p {
+    margin-bottom: 15px;
+}
+
+.wp-editor a,
+.blabla a {
+    color: #42b0ad;
+}
+
+.wp-editor h1,
+.blabla h1 {
+}
+
+.wp-editor h2,
+.blabla h2 {
+}
+
+.wp-editor h3,
+.blabla h3 {
+}
+
+.wp-editor h4,
+.blabla h4 {
+}
+
+.wp-editor p,
+.blabla p {
+}
+
+.wp-editor ul,
+.blabla ul {
+}
+
+.wp-editor ol,
+.blabla ol {
+}
+
+.wp-editor img,
+.blabla img {
+    margin: 5px 5px 20px 5px;
+}
+
+.wp-editor .alignleft,
+.blabla .alignleft {
+    display: inline;
+    float: left;
+    margin-right: 20px;
+}
+
+.wp-editor .aligncenter,
+.blabla .aligncenter {
+    display: block;
+    clear: both;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.wp-editor .alignright,
+.blabla .alignright {
+    display: inline;
+    float: right;
+    margin-left: 20px;
+}
+
+.wp-editor blockquote,
+.blabla blockquote {
+}
+
+.wp-editor strong,
+.blabla strong {
+}
+
+.wp-editor em,
+.blabla em {
+}
+
+.wp-editor acronym,
+.blabla acronym {
+}
+
+.wp-editor code,
+.blabla code {
+}
+
+.wp-editor pre,
+.blabla pre {
+}
+
+.size-auto {
+}
+
+.size-medium {
+}
+
+.size-large {
+}
+
+.size-full {
+}
+
+.wp-caption {
+}
+
+.wp-caption img {
+}
+
+.gallery {
+}
+
+.gallery .gallery-item {
+}

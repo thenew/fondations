@@ -1,62 +1,75 @@
 <?php
 function fon_debug_toolbar(){
-  if(WP_DEBUG):
-  ?>
+    if ( ! WP_DEBUG ) return;
+
+    fon_debug_flush();
+    ?>
     <div class="fon_debug_toolbar">
-      <ul class="options cf">
-        <?php if(defined('FONDATIONS_VERSION') && FONDATIONS_VERSION): ?>
-          <li class="is_link logo"><a href="<?php echo site_url('/wp-admin', 'admin'); ?>"><code><?php echo FONDATIONS_VERSION; ?></code></a></li>
-        <?php endif; ?>
-        <li class="template"><code><?php echo fon_get_template(); ?></code></li>
-        <li class="queries"><?php echo get_num_queries(); ?></li>
-        <li class="timer"><?php echo timer_stop($display = 0, $precision = 2).'s'; ?></li>
-        <li class="is_link user">
-          <?php
-          // TODO: absolute url or relative url for the redirect
-          $fon_current_url = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
-          if (is_user_logged_in()){
-            global $current_user, $user_login;
-            get_currentuserinfo();
-            // roles
-            $user_roles = '';
-            foreach ($current_user->roles as $role) {
-              if($user_roles == '')
-                $user_roles = $role;
-              else
-                $user_roles .= ', '.$role;
-            }
-            echo '<a href="'.wp_logout_url($_SERVER["REQUEST_URI"]).'" rel="tooltip" title="Role(s) : '.$user_roles.'">
-              '.$user_login.'
-            </a>';
-          } else {
-            echo '<a href="'.wp_login_url($_SERVER["REQUEST_URI"]).'">not logged in</a>';
-          }
-          ?>
-        </li>
-        <li class="search" rel="tooltip" data-original-title="codex">
-          <form class="codex-search" target="_blank" name="search" action="http://codex.wordpress.org/index.php?title=Special:Search" method="get">
-            <input type="text" name="search" id="fon_dbar_search"/>
-          </form>
-        </li>
-      </ul>
-      <?php $debug_log = fon_debug_log();?>
+        <ul class="options cf">
+            <?php if(defined('FONDATIONS_VERSION') && FONDATIONS_VERSION): ?>
+              <li class="is_link logo"><a href="<?php echo site_url('/wp-admin', 'admin'); ?>"><code><?php echo FONDATIONS_VERSION; ?></code></a></li>
+            <?php endif; ?>
+            <li class="template"><code><?php echo fon_get_template(); ?></code></li>
+            <li class="queries"><?php echo get_num_queries(); ?></li>
+            <li class="timer"><?php echo timer_stop($display = 0, $precision = 2).'s'; ?></li>
+            <li class="is_link user">
+                <?php
+                // TODO: absolute url or relative url for the redirect
+                $fon_current_url = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+                if (is_user_logged_in()) {
+                    global $current_user, $user_login;
+                    get_currentuserinfo();
+                    // roles
+                    $user_roles = '';
+                    foreach ($current_user->roles as $role) {
+                        if($user_roles == '')
+                            $user_roles = $role;
+                        else
+                            $user_roles .= ', '.$role;
+                    }
+                    echo '<a href="'.wp_logout_url($_SERVER["REQUEST_URI"]).'" rel="tooltip" title="Role(s) : '.$user_roles.'">
+                      '.$user_login.'
+                    </a>';
+                } else {
+                    echo '<a href="'.wp_login_url($_SERVER["REQUEST_URI"]).'">not logged in</a>';
+                }
+                ?>
+            </li>
+            <li class="flush-rules no-icon has-button">
+                <form class="" name="fon_flush" action="" method="get">
+                    <button type="submit" name="fon_flush" value="rules" class="submit-button">flush rewrite rules</button>
+                </form>
+            </li>
+            <li class="search" rel="tooltip" data-original-title="codex">
+                <form class="codex-search" target="_blank" name="search" action="http://codex.wordpress.org/index.php?title=Special:Search" method="get">
+                    <input type="text" name="search" id="fon_dbar_search"/>
+                </form>
+            </li>
+        </ul>
+        <?php // $debug_log = fon_debug_log();?>
     </div>
     <?php
-  endif;
 }
 
-function fon_get_template(){
-  // http://wordpress.stackexchange.com/questions/10537/get-name-of-the-current-template-file
-  global $template;
-  $template_file = basename($template);
-  return $template_file;
+function fon_get_template() {
+    // http://wordpress.stackexchange.com/questions/10537/get-name-of-the-current-template-file
+    global $template;
+    $template_file = basename($template);
+    return $template_file;
+}
+
+function fon_debug_flush() {
+    if ( ! isset( $_GET['fon_flush'] ) || 'rules' != $_GET['fon_flush'] ) return;
+
+    flush_rewrite_rules( true );
 }
 
 /*
  * Display the debug.log file (wp-content folder) in the footer
  */
-function fon_debug_log(){
-  if(WP_DEBUG && WP_DEBUG_LOG){
+function fon_debug_log() {
+    if ( ! WP_DEBUG || ! WP_DEBUG_LOG ) return;
+
     $debug_file = ABSPATH.'wp-content/debug.log';
     if(file_exists($debug_file) && file_get_contents($debug_file) != "") {
 
@@ -100,6 +113,4 @@ function fon_debug_log(){
       <?php
       return $debug_log;
     } // end if file exists
-
-  }
 }
