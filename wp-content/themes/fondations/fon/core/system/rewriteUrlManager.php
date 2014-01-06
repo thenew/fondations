@@ -40,17 +40,19 @@ add_action( 'template_redirect', function(){
 add_action( 'fon_menu_hook', 'fon_menu_rewrite_rules' );
 
 function fon_menu_rewrite_rules() {
+    global $fon_routes;
     ?>
     <h3>Permaliens</h3>
-    <?php
-    global $fon_routes;
-    $routes = '';
-    foreach ($fon_routes as $route => $action) {
-        // $routes .= $route . ' => ' . $action . "\n" ;
-        $routes .= $route . ' => views/' . $route . '.php' . "\n" ;
-    }
-    ?>
-    <textarea cols="30" rows="3"><?php echo $routes; ?></textarea>
-    <?php
 
+    <table class="widefat fon-table"><tbody>
+        <tr><th><strong>URL</strong></th><th><strong>Fichier</strong></th></tr>
+        <?php
+        foreach ($fon_routes as $route => $action) {
+            ?>
+            <tr><td><?php echo $route; ?></td><td><?php echo 'views/' . $route . '.php'; ?></td></tr>
+            <?php
+        }
+        ?>
+    </tbody></table>
+    <?php
 }

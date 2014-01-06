@@ -2465,3 +2465,40 @@ div#wp-responsive-toggle a:before {
 .wp-responsive-open #wpadminbar #wp-admin-bar-menu-toggle a {
     background: #26292c;
 }
+
+/* Tables */
+
+.fon-table,
+.fon-table tr,
+.fon-table td,
+.fon-table th {
+    border-collapse: collapse;
+    vertical-align: middle;
+}
+
+.fon-table {
+    max-width: 500px;
+    color: #333;
+    background: #efefef;
+    margin-bottom: 30px;
+}
+
+.fon-table tr,
+.fon-table td,
+.fon-table th {
+    border: 1px solid #e0e0e0;
+}
+
+.fon-table tr:hover {
+    color: #000;
+    background: #fafafa;
+}
+
+.fon-table th {
+    color: #333;
+    background: rgba(54, 148, 146, .3);
+}
+
+.fon-table th {
+    border-color: #A4D1D5;
+}
