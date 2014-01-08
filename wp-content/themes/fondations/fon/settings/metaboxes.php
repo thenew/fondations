@@ -31,11 +31,11 @@ $fon_meta_boxes[] = array(
             'id'   => "{$prefix}release_date_fr",
             'type' => 'date',
         ),
-        array(
-            'name' => 'Pochette originale',
-            'id'   => "{$prefix}cover_original",
-            'type' => 'image',
-        ),
+        // array(
+        //     'name' => 'Pochette originale',
+        //     'id'   => "{$prefix}cover_original",
+        //     'type' => 'image',
+        // ),
         array(
             'name' => 'Pochette',
             'id'   => "{$prefix}cover_fr",

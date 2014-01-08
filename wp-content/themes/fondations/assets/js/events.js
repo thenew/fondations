@@ -13,4 +13,6 @@ window.addEvent('domready',function(){
         // galleryItemsPerPage: 4,
     });
 
+    fonWove();
+
 });

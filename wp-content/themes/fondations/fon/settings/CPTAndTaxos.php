@@ -10,6 +10,7 @@ $game = new Custom_Post_Type( 'Game', array(
 $game->add_taxonomy( 'genre' );
 $game->add_taxonomy( 'theme' );
 $game->add_taxonomy( 'support' );
+$game->add_taxonomy( 'post_tag' );
 
 
 $person = new Custom_Post_Type( 'Person' );
