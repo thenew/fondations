@@ -132,36 +132,3 @@ $$('*[data-full-src]').each(function(el) {
         }
     });
 });
-
-function fonWove() {
-    $$('.wove').each(function(el) {
-        el.setStyles({
-            'background-color': '#0ff1CE'
-        });
-        var image = el.getElement('img');
-        if(!image) return;
-
-        var wove = new Element('div').wraps(image);
-
-        wove.setStyles({
-            'width': '100%',
-            'height': 0,
-            'overflow': 'hidden'
-        });
-        var myImage = Asset.image(image.get('src'), {
-            onLoad: function() {
-
-                setTimeout(function() {
-                    var openFx = new Fx.Morph(wove, {
-                        duration: 200,
-                        transition: Fx.Transitions.Cubic.easeInOut,
-                        onComplete: function() {
-                        }
-                    });
-                    openFx.start({ height: el.getHeight() });
-                }, 1000);
-
-            }
-        });
-    });
-}

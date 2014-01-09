@@ -8,6 +8,7 @@ function fon_script_init() {
         wp_enqueue_script('slider',ASSETS_URL.'/js/dk-jsu-slider.js','','1.0',false);
         wp_enqueue_script('fonsearch',ASSETS_URL.'/js/Fon_search.js','','1.0',false);
         wp_enqueue_script('functions',ASSETS_URL.'/js/functions.js','','1.0',false);
+        wp_enqueue_script('wove',ASSETS_URL.'/js/wove.js','','1.0',false);
         wp_enqueue_script('events',ASSETS_URL.'/js/events.js','','1.0',false);
     }
     // Admin

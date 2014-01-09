@@ -67,6 +67,8 @@ function fon_pagination(){
     <?php
 }
 
+// MEDIAS
+
 function fon_get_attachment($page_id, $format) {
     query_posts('post_type=page&p='.$page_id);
     while (have_posts()) : the_post();
@@ -84,6 +86,54 @@ function fon_get_attachment($page_id, $format) {
         }
     endwhile;
     wp_reset_query();
+}
+
+function fon_get_attachments( $post_ids, $formats = array('thumbnail'), $exclude_ids = array() ) {
+    if ( ! $post_ids ) return;
+    if ( ! is_array( $post_ids ) ) {
+        $post_ids = array( $post_ids );
+    }
+
+    $thumbs = array();
+
+    $args = array(
+        'post_type'      => 'attachment',
+        'post_parent__in' => $post_ids,
+        'post__not_in' => $exclude_ids,
+        'post_status' => 'any',
+        'posts_per_page' => -1
+    );
+    $query = new WP_Query($args);
+    if($query->have_posts()): while($query->have_posts()):$query->the_post();
+        $attachment_id = get_the_id();
+
+        $alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
+        if ( empty( $alt ) ) {
+            $alt = get_the_title();
+        }
+        $thumb_array = array(
+            'title' => get_the_title(),
+            'alt' => $alt,
+            'caption' => get_the_excerpt(),
+            'description' => get_the_content()
+        );
+
+        // Formats
+        foreach ($formats as $format) {
+            $thumb = wp_get_attachment_image_src( $attachment_id, $format );
+            $thumb_array[$format] = array(
+                'src' => $thumb[0],
+                'width' => $thumb[1],
+                'height' => $thumb[2]
+            );
+        }
+
+        $thumbs[$attachment_id] = $thumb_array;
+
+    endwhile; endif;
+    wp_reset_postdata();
+
+    return $thumbs;
 }
 
 /**
@@ -111,7 +161,7 @@ function fon_get_thumb_url( $format = 'thumbnail', $post_id = null ) {
     }
 }
 
-
+// TODO use wp_handle_upload instead
 function fon_upload_files($imgs) {
     if(!is_array($imgs)) return;
     foreach ($imgs as $img) {
