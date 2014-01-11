@@ -18,13 +18,17 @@ $name = get_bloginfo('name');
 <title><?php echo $title ?></title>
 <meta name="description" content="<?php echo $description ?>" />
 
-<?php // Twitter ?>
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="<?php echo FON_TWITTER_SITE ?>">
-<meta name="twitter:creator" content="<?php echo FON_TWITTER_CREATOR ?>">
-<meta name="twitter:title" content="<?php echo $title ?>">
-<meta name="twitter:description" content="<?php echo $description ?>">
-<meta name="twitter:image" content="<?php echo $image ?>">
+<?php // Twitter
+$twitter_site = get_option('fon_twitter_site');
+$twitter_creator = get_option('fon_twitter_creator');
+if( ! empty( $twitter_site ) || ! empty( $twitter_creator ) ): ?>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="<?php echo $twitter_site; ?>">
+    <meta name="twitter:creator" content="<?php echo $twitter_creator; ?>">
+    <meta name="twitter:title" content="<?php echo $title ?>">
+    <meta name="twitter:description" content="<?php echo $description ?>">
+    <meta name="twitter:image" content="<?php echo $image ?>">
+<?php endif; ?>
 
 <?php // Open Graph ?>
 <meta property="og:title" content="<?php echo $title ?>" />

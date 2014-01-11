@@ -1,4 +1,16 @@
 <?php
+
+// TODO replace admin_init
+add_action( 'admin_init', 'fon_admin_menu_scripts' );
+function fon_admin_menu_scripts() {
+    wp_enqueue_script( 'fon_admin_menu', FON_URL.'/core/js/admin.js', '', '1.0', true );
+}
+
+add_action( 'admin_init', 'fon_admin_menu_styles' );
+function fon_admin_menu_styles() {
+    wp_enqueue_style( 'fon_admin_menu', FON_URL.'/core/css/admin.css', '', '1.0' );
+}
+
 /*
  * Menus & MetasBoxes
  * Supprime des menus inutiles dans l'admin Wordpress

@@ -8,6 +8,7 @@ define('TEMPLATE_URL',   get_bloginfo('template_directory')); // path with virtu
 define('TEMPLATE_PATH',  get_template_directory()); // the server-side path to folder
 
 define('FON_PATH',       TEMPLATE_PATH.'/fon');
+define('FON_URL',       TEMPLATE_URL.'/fon');
 
 define('ASSETS_PATH',    TEMPLATE_PATH.'/assets');
 define('ASSETS_URL',     TEMPLATE_URL.'/assets');
@@ -21,9 +22,9 @@ define('LIB_URL',        TEMPLATE_URL.'/fon/lib');
 define('CLASSES_PATH',   TEMPLATE_PATH.'/fon/core/classes');
 define('CLASSES_URL',    TEMPLATE_URL.'/fon/core/classes');
 
-function fon_define_env_dev(){
-    $url_extension = pathinfo($_SERVER['HTTP_HOST'],PATHINFO_EXTENSION);
-    return (WP_DEBUG || $url_extension == "dev" || $url_extension == "local" || is_preview());
+function fon_define_env_dev() {
+    $url_extension = pathinfo( $_SERVER['HTTP_HOST'], PATHINFO_EXTENSION );
+    return ( WP_DEBUG || $url_extension == "dev" || $url_extension == "local" || is_preview() );
 }
 define('ENV_DEV', fon_define_env_dev());
 
