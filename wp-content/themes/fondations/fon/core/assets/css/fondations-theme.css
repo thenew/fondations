@@ -2502,3 +2502,9 @@ div#wp-responsive-toggle a:before {
 .fon-table th {
     border-color: #A4D1D5;
 }
+
+/* Forms */
+
+input[type=color] {
+    padding: 0;
+}

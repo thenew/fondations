@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+body.login {
+    background-image: url(../img/pattern.png);
+    background-repeat: repeat;
+    background-color: #42b0ad;
+    background-position: center top;
+    /*background: url(../img/bg.png) repeat #42b0ad;*/
+}
+
+.login h1 a {
+    margin-bottom: 10px;
+    background: url(../img/logo-login.png) no-repeat top center;
+}
+
+.login #loginform {
+    border: 1px solid rgba(255,255,255, .65);
+    background: rgba(0,0,0,.5);
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.5) inset;
+}
+
+.login label {
+    color: #eee;
+}
+
+.login #login #nav a,
+.login #login #backtoblog a {
+    color: #fff !important;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.3);
+}
+
+.login #login #nav a:hover,
+.login #login #backtoblog a:hover {
+    color: #143736 !important;
+    text-shadow: none;
+}

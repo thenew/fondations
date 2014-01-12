@@ -1,14 +1,14 @@
 <?php
 
 // TODO replace admin_init
-add_action( 'admin_init', 'fon_admin_menu_scripts' );
+add_action( 'admin_enqueue_scripts', 'fon_admin_menu_scripts' );
 function fon_admin_menu_scripts() {
-    wp_enqueue_script( 'fon_admin_menu', FON_URL.'/core/js/admin.js', '', '1.0', true );
+    wp_enqueue_script( 'fon_admin_menu', FON_URL.'/core/assets/js/admin.js', '', '1.0', true );
 }
 
-add_action( 'admin_init', 'fon_admin_menu_styles' );
+add_action( 'admin_enqueue_scripts', 'fon_admin_menu_styles' );
 function fon_admin_menu_styles() {
-    wp_enqueue_style( 'fon_admin_menu', FON_URL.'/core/css/admin.css', '', '1.0' );
+    wp_enqueue_style( 'fon_admin_menu', FON_URL.'/core/assets/css/admin.css', '', '1.0' );
 }
 
 /*
@@ -61,7 +61,7 @@ function remove_box() {
 }
 
 function add_my_themes() {
-    wp_admin_css_color( 'fondations', _x( 'Fondations', 'admin color scheme' ), ASSETS_URL . '/css-admin/fondations-colors.css', array( '#25282b', '#363b3f', '#F89C8F', '#369492' ) );
+    wp_admin_css_color( 'fondations', 'Fondations', FON_URL.'/core/assets/css/fondations-theme.css', array( '#25282b', '#363b3f', '#F89C8F', '#369492' ) );
 }
 add_action( 'admin_init', 'add_my_themes', 1 );
 

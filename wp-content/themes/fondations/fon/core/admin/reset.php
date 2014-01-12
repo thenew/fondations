@@ -29,13 +29,6 @@ function unregister_default_wp_widgets() {
 // Remove the admin bar from the front end
 // add_filter( 'show_admin_bar', '__return_false' );
 
-// Custom CSS for the login page
-function fon_login_enqueue() {
-    wp_enqueue_style('fon-login', ASSETS_URL.'/css-admin/wp-login.css', array(), '1', 'all');
-}
-add_action('login_enqueue_scripts', 'fon_login_enqueue');
-
-// Custom CSS for the login page
 function fon_admin_enqueue() {
     wp_enqueue_style('fon-admin', ASSETS_URL.'/css-admin/admin.css', array(), '1', 'all');
 }

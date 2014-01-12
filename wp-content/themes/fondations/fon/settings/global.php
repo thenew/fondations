@@ -13,11 +13,11 @@ function fon_profile_custom_fields( $fields ) {
         'fon_twitter_creator' => array(
             'label'   => 'Compte Twitter du créateur'
         ),
-        'fon_tttt' => array(
-            'label'   => 'Test dynarea',
-            'type' => 'textarea',
-            'dynamic' => 3
-        )
+        // 'fon_tttt' => array(
+        //     'label'   => 'Test dynarea',
+        //     'type' => 'textarea',
+        //     'dynamic' => 3
+        // )
     );
 
     $fields = array_merge( $fields, $custom_fields );
