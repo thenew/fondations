@@ -1,5 +1,10 @@
 <?php
 
+function full( $var ) {
+    return ( isset( $var ) && ! empty( $var ) );
+}
+
+
 function fon_slugify( $text ) {
   // replace non letter or digits by -
   $text = preg_replace('~[^\\pL\d]+~u', '-', $text);

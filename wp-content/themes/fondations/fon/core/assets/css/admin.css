@@ -1,5 +1,90 @@
 @charset "UTF-8";
 
+/* ----------------------------------------------------------
+   Default
+   ------------------------------------------------------- */
+
+.fon-body img {
+    height: auto;
+    max-width: 100%;
+}
+
+.fon-body .input-range + .input-range-value {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-top: -10px;
+}
+
+
+/* ----------------------------------------------------------
+   Profile
+   Dynamic input
+   ------------------------------------------------------- */
+
 .dynamic-input {
     display: block;
+}
+
+
+/* ----------------------------------------------------------
+   Filou
+   ------------------------------------------------------- */
+
+.images-wall .item {
+    width: 250px;
+    line-height: 0;
+    transition: opacity .2s;
+}
+
+.images-wall .item .overlay,
+.images-wall .item .checkbox {
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.images-wall .item .checkbox {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.images-wall .item .overlay {
+    z-index: 3;
+    background-color: #42b0ad;
+    transition: opacity .2s;
+}
+
+.images-wall .item .checkbox:checked + .overlay {
+    opacity: .4;
+}
+
+.images-wall .item .infos {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    padding: 6px 6px 4px 8px;
+    font-family: 'Courier New', 'Courier', monospace;
+    font-size: 11px;
+    line-height: 1;
+    color: #ffff00;
+    background: rgba(0,0,0,.5);
+}
+
+.images-wall .item.outrange {
+    opacity: .8;
+}
+
+.images-wall .item.outrange .overlay {
+    background-color: #e75e4b;
+    opacity: .8;
 }
