@@ -49,4 +49,16 @@ jQuery(document).ready(function ($) {
         });
     });
 
+
+    // Filou
+    var $container = jQuery('#js-packery');
+    $container.packery({
+      // options
+      itemSelector: '.item',
+      gutter: 0,
+      columnWidth: '.item'
+    });
+
+
+
 });
