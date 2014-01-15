@@ -14,7 +14,6 @@ function fon_script_init() {
     wp_enqueue_script( 'events', ASSETS_URL.'/js/events.js', '', '1.0', true );
 }
 
-// TODO replace admin_init
 add_action('admin_enqueue_scripts', 'fon_admin_script_init');
 function fon_admin_script_init() {
     wp_enqueue_script( 'admin', ASSETS_URL.'/js/admin.js', '', '1.0', true );

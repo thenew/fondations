@@ -1,6 +1,5 @@
 <?php
 
-// TODO replace admin_init
 add_action( 'admin_enqueue_scripts', 'fon_admin_menu_scripts' );
 function fon_admin_menu_scripts() {
     wp_enqueue_script( 'packery', FON_URL.'/core/assets/js/packery.pkgd.min.js', '', '1.0', true );

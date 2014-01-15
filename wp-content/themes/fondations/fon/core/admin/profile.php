@@ -27,7 +27,7 @@ function fon_profile_page() {
     <?php } ?>
 
 
-    <form id="fon_profile_form" class="cssn_form float_form" action="" method="POST">
+    <form id="fon_profile_form" class="" action="" method="POST">
         <table class="form-table"><tbody>
             <?php
             // iterate trough fields / option

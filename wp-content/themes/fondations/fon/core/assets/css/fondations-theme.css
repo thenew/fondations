@@ -2135,6 +2135,8 @@ strong .post-com-count span {
 
 #adminmenu div.wp-menu-image:before {
     color: #f1f2f3;
+    padding: 5px 0;
+    height: 20px;
 }
 
 #adminmenu a:hover,

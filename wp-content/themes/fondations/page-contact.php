@@ -11,7 +11,7 @@ include('mail.php');
 <div class="content">
   <?php //the_content(); ?>
 
-  <form id="contact_form" class="cssn_form block_form" action="/contact" method="POST">
+  <form id="contact_form" class="" action="/contact" method="POST">
     <fieldset>
       <ul>
         <li>
