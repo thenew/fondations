@@ -1,3 +1,31 @@
+function getImgSize(imgSrc, item, value) {
+    var newImg = new Image();
+
+    newImg.onload = function() {
+        var h = newImg.height;
+        var w = newImg.width;
+        item.attr('data-width', w);
+        item.attr('data-height', h);
+
+        if( h < value || w < value ) {
+            item.addClass('outrange');
+            item.find('.checkbox').attr('checked', false);
+        } else {
+            item.removeClass('outrange');
+        }
+
+
+        var $packeryContainer = jQuery('#js-packery');
+        $packeryContainer.packery({
+          itemSelector: '.item',
+          gutter: 10
+        });
+
+
+    };
+    newImg.src = imgSrc; // this must be done AFTER setting onload
+}
+
 jQuery(document).ready(function ($) {
 
     // input range
@@ -7,7 +35,6 @@ jQuery(document).ready(function ($) {
         valueEl = jQuery(valueEl).find('.value');
         valueEl = jQuery(valueEl);
         el.on('change', function(event) {
-            console.log(el.attr('value'));
             valueEl.text(el.attr('value'));
         });
     });
@@ -71,6 +98,7 @@ jQuery(document).ready(function ($) {
    Filou
    ------------------------------------------------------- */
 
+
     jQuery('#filou_size_min').on('change', function(event) {
         var value = jQuery(this).attr('value');
 
@@ -79,13 +107,22 @@ jQuery(document).ready(function ($) {
             item = jQuery(item);
             var w = item.data('width');
             var h = item.data('height');
-            if( h < value || w < value ) {
-                item.addClass('outrange');
-                item.find('.checkbox').attr('checked', false);
+
+            if( w && h ) {
+                if( h < value || w < value ) {
+                    item.addClass('outrange');
+                    item.find('.checkbox').attr('checked', false);
+                } else {
+                    item.removeClass('outrange');
+                }
             } else {
-                item.removeClass('outrange');
+
+                var img = item.find('img');
+                getImgSize(img.attr('src'), item, value);
+
             }
         });
+
     });
 
 
@@ -113,12 +150,13 @@ jQuery( window ).load(function() {
    ------------------------------------------------------- */
 
     // masonry
-    var $container = jQuery('#js-packery');
-    $container.packery({
-      // options
-      itemSelector: '.item',
-      gutter: 10,
-      columnWidth: '.item'
-    });
+    var $packeryContainer = jQuery('#js-packery');
+    if( $packeryContainer.find('.item').length > 1) {
+        $packeryContainer.packery({
+          itemSelector: '.item',
+          gutter: 10
+          // columnWidth: '.item'
+        });
+    }
 
 });

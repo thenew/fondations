@@ -16,6 +16,15 @@
     margin-top: -10px;
 }
 
+​.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after { clear: both; }
+
+.cf { *zoom: 1; }
 
 /* ----------------------------------------------------------
    Profile
@@ -32,7 +41,9 @@
    ------------------------------------------------------- */
 
 .images-wall .item {
-    width: 250px;
+    position: relative;
+    float: left;
+    max-width: 250px;
     line-height: 0;
     transition: opacity .2s;
 }
@@ -82,9 +93,11 @@
 
 .images-wall .item.outrange {
     opacity: .8;
+    display: none;
 }
 
 .images-wall .item.outrange .overlay {
     background-color: #e75e4b;
+    background-color: #222;
     opacity: .8;
 }
