@@ -186,11 +186,13 @@ if ( ! class_exists( 'RWMB_Helper' ) )
 				{
 					$term_ids = array_map( 'intval', array_filter( explode( ',', $meta . ',' ) ) );
 
-					$meta = array();
-					foreach ( $term_ids as $term_id )
-					{
-						$meta[] = get_term( $term_id, $args['taxonomy'] );
-					}
+					// Allow to pass more arguments to "get_terms"
+					$func_args = wp_parse_args( array(
+						'include'    => $term_ids,
+						'hide_empty' => false,
+					), $args );
+					unset( $func_args['type'], $func_args['taxonomy'], $func_args['multiple'] );
+					$meta = get_terms( $args['taxonomy'], $func_args );
 				}
 				else
 				{
@@ -293,10 +295,14 @@ if ( ! class_exists( 'RWMB_Helper' ) )
 			$args = wp_parse_args( $args, array(
 				'width'        => '640px',
 				'height'       => '480px',
-				'zoom'         => $parts[2], // Default to 'zoom' level set in admin, but can be overwritten
 				'marker'       => true,      // Display marker?
 				'marker_title' => '',        // Marker title, when hover
 				'info_window'  => '',        // Content of info window (when click on marker). HTML allowed
+				'js_options'   => array(),
+			) );
+			$args['js_options'] = wp_parse_args( $args['js_options'], array(
+				'zoom'      => $parts[2], // Default to 'zoom' level set in admin, but can be overwritten
+				'mapTypeId' => 'ROADMAP', // Map type, see https://developers.google.com/maps/documentation/javascript/reference#MapTypeId
 			) );
 
 			// Counter to display multiple maps on same page
@@ -319,14 +325,29 @@ if ( ! class_exists( 'RWMB_Helper' ) )
 
 			$html .= sprintf( '
 				var center = new google.maps.LatLng( %s, %s ),
-					mapOptions = {
-						center: center,
-						zoom: %d,
-						mapTypeId: google.maps.MapTypeId.ROADMAP
-					},
-					map = new google.maps.Map( document.getElementById( "rwmb-map-canvas-%d" ), mapOptions );',
+					mapOptions = %s,
+					map;
+
+				switch ( mapOptions.mapTypeId )
+				{
+					case "ROADMAP":
+						mapOptions.mapTypeId = google.maps.MapTypeId.ROADMAP;
+						break;
+					case "SATELLITE":
+						mapOptions.mapTypeId = google.maps.MapTypeId.SATELLITE;
+						break;
+					case "HYBRID":
+						mapOptions.mapTypeId = google.maps.MapTypeId.HYBRID;
+						break;
+					case "TERRAIN":
+						mapOptions.mapTypeId = google.maps.MapTypeId.TERRAIN;
+						break;
+				}
+				mapOptions.center = center;
+				map = new google.maps.Map( document.getElementById( "rwmb-map-canvas-%d" ), mapOptions );
+				',
 				$parts[0], $parts[1],
-				$args['zoom'],
+				json_encode( $args['js_options'] ),
 				$counter
 			);
 
