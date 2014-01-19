@@ -102,8 +102,12 @@ class Custom_Post_Type extends Fon_Base_Class
             if(!taxonomy_exists($taxonomy_name))
             {
                 /* Create taxonomy and attach it to the object type (post type) */
-                //Capitilize the words and make it plural
-                $name     = ucwords(str_replace('_', ' ', $name ));
+                if( isset( $taxonomy_labels['singular_name'] ) && ! empty( $taxonomy_labels['singular_name'] ) ) {
+                    $name = $taxonomy_labels['singular_name'];
+                } else {
+                    // Capitilize the words and make it plural
+                    $name = ucwords( str_replace( '_', ' ', $name ) );
+                }
                 $plural   = $name . 's';
 
                 // Default labels, overwrite them with the given labels.
@@ -111,16 +115,16 @@ class Custom_Post_Type extends Fon_Base_Class
 
                     // Default
                     array(
-                        'name'              => _x($plural, 'taxonomy general name' ),
-                        'singular_name'     => _x($name, 'taxonomy singular name' ),
-                        'search_items'      => __( 'Search ' . $plural ),
-                        'all_items'         => __( 'All ' . $plural ),
-                        'parent_item'       => __( 'Parent ' . $name ),
-                        'parent_item_colon' => __( 'Parent ' . $name . ':' ),
-                        'edit_item'         => __( 'Edit ' . $name ),
-                        'update_item'       => __( 'Update ' . $name ),
-                        'add_new_item'      => __( 'Add New ' . $name ),
-                        'new_item_name'     => __( 'New ' . $name . ' Name' ),
+                        'name'              => _x( $plural, 'taxonomy general name' ),
+                        'singular_name'     => _x( $name, 'taxonomy singular name' ),
+                        'search_items'      => __( 'Search' ) . ' ' . $plural,
+                        'all_items'         => __( 'All' ) . ' ' . $plural,
+                        'parent_item'       => __( 'Parent' ) . ' ' . $name,
+                        'parent_item_colon' => __( 'Parent' ) . ' ' . $name . ':',
+                        'edit_item'         => __( 'Edit' ) . ' ' . $name,
+                        'update_item'       => __( 'Update' ) . ' ' . $name,
+                        'add_new_item'      => __( 'Add New' ) . ' ' . $name,
+                        'new_item_name'     => __( 'New' ) . ' ' . $name . ' ' . __('Name' ),
                         'menu_name'         => __( $name ),
                     ),
 
@@ -134,12 +138,13 @@ class Custom_Post_Type extends Fon_Base_Class
 
                     // Default
                     array(
-                        'label'              => $plural,
+                        // 'label'              => $plural,
                         'labels'             => $labels,
                         'public'             => true,
                         'show_ui'            => true,
                         'hierarchical'       => true,
-                        'show_in_nav_menus'  => true,
+                        'show_in_nav_menus'  => false,
+                        'show_admin_column'  => true,
                         '_builtin'           => false,
                     ),
 
@@ -169,6 +174,9 @@ class Custom_Post_Type extends Fon_Base_Class
             }
 
         }
+
+
+
     }
 
 

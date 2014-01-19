@@ -6,6 +6,7 @@ function getImgSize(imgSrc, item, value) {
         var w = newImg.width;
         item.attr('data-width', w);
         item.attr('data-height', h);
+        jQuery(item.find('.infos')[0]).text( w + 'x' + h );
 
         if( h < value || w < value ) {
             item.addClass('outrange');

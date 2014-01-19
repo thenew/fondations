@@ -147,13 +147,16 @@ function fon_filou_parsing( $url = '', $args = array() ) {
                     <?php
                     echo '<img src="'.$img['url'].'" alt="" />';
                     ?>
+                    <input type="checkbox" name="filou_imgs_tag[]" value="art" class="tag-checkbox" />
                     <input type="checkbox" name="filou_imgs[]" value="<?php echo $img['url']; ?>" class="checkbox" <?php if(count($imgs) < 2) echo 'checked' ?> />
                     <div class="overlay"></div>
-                    <?php if ( $img['width'] ): ?>
-                        <div class="infos">
+                    <div class="infos">
+                        <?php if ( $img['width'] ): ?>
                             <?php echo $img['width'].'x'.$img['height']; ?>
-                        </div>
-                    <?php endif; ?>
+                        <?php else: ?>
+                            /
+                        <?php endif; ?>
+                    </div>
                 </div>
             <?php } ?>
         </div>
@@ -213,8 +216,12 @@ function fon_filou_save() {
 
     set_time_limit(30);
 
-    foreach ( $imgs as $img_url ) {
+    foreach ( $imgs as $key => $img_url ) {
         $attachment_id = fon_upload_form_url( $img_url, $title, $post_id );
+
+        if( isset( $_POST['filou_imgs_tag'][$key] ) && ! empty( $_POST['filou_imgs_tag'][$key] ) ) {
+            wp_set_object_terms( $attachment_id, $_POST['filou_imgs_tag'][$key], 'attachment_tag', true );
+        }
     }
 
 
