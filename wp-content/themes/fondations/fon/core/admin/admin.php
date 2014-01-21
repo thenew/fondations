@@ -11,6 +11,12 @@ function fon_admin_menu_styles() {
     wp_enqueue_style( 'fon_admin_menu', FON_URL.'/core/assets/css/admin.css', '', '1.0' );
 }
 
+if(WP_DEBUG) {
+    add_action( 'admin_print_styles', function() {
+        echo '<style type="text/css">#adminmenu .dashicons-marker::before{color:#369492 !important;}</style>';
+    } );
+}
+
 /*
  * Menus & MetasBoxes
  * Supprime des menus inutiles dans l'admin Wordpress
