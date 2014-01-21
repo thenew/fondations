@@ -2229,7 +2229,7 @@ ul#adminmenu>li.current>a.current:after {
 
 #adminmenu .awaiting-mod,
 #adminmenu .update-plugins {
-    color: #fff;
+    color: #222;
     background: #F89C8F;
 }
 
