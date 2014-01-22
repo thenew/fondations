@@ -71,3 +71,18 @@ function add_my_themes() {
 }
 add_action( 'admin_init', 'add_my_themes', 1 );
 
+/**
+ * Columns
+ */
+
+add_filter('manage_posts_columns', 'fon_post_columns', 5);
+add_action('manage_posts_custom_column', 'fon_set_post_custom_columns', 5, 2);
+function fon_post_columns($defaults){
+    $defaults['fon_post_thumb'] = __('Thumb');
+    return $defaults;
+}
+function fon_set_post_custom_columns($column_name, $id){
+        if($column_name === 'fon_post_thumb'){
+        the_post_thumbnail( array(60,60) );
+    }
+}
