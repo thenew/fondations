@@ -101,6 +101,11 @@ add_action( 'fon_profile_fields', 'fon_profile_set_fields' );
 function fon_profile_set_fields( $fields ) {
 
     $fields = array(
+        'fon_dev_url' => array(
+            'label' => 'URL de développement',
+            'type' => 'url',
+            'default' => 'fondations.local'
+        ),
         'fon_analytics' => array(
             'label' => 'Code Google Analytics',
             'type' => 'text',
@@ -112,7 +117,6 @@ function fon_profile_set_fields( $fields ) {
             'help'    => '',
             'default' => ''
         ),
-        // TODO add multiple fields
         'fon_fav_color' => array(
             'label' => 'Couleur préférée',
             'type' => 'color',

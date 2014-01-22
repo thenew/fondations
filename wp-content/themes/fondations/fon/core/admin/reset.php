@@ -49,8 +49,9 @@ define('DISALLOW_FILE_EDIT', true);
 
 // add_action('rewrite_rules_array', fon_set_permalink());
 
-add_action( 'admin_footer-post-new.php', 'fon_media_uploaded_default' );
-add_action( 'admin_footer-post.php', 'fon_media_uploaded_default' );
+// BUGGY change select option in scroll
+// add_action( 'admin_footer-post-new.php', 'fon_media_uploaded_default' );
+// add_action( 'admin_footer-post.php', 'fon_media_uploaded_default' );
 
 function fon_media_uploaded_default() { ?>
 <script type="text/javascript">
