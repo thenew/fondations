@@ -274,7 +274,10 @@ function fon_wp_menu( $location, $echo = true ) {
     $is_current = false;
     $current = 'current';
     $menu = fon_get_wp_menu( $location );
-    foreach ($menu as $item) {
+    if ( ! is_array( $menu ) )
+        $menu = array( $menu );
+    foreach ( $menu as $item ) {
+        if( !isset( $item->url ) || !isset( $item->title ) ) continue;
 
         // Post type archive
         if ( 'cpt-archive' == $item->object && ( is_post_type_archive( $item->type ) || is_singular( $item->type ) ) ) {

@@ -126,6 +126,16 @@ jQuery(document).ready(function ($) {
 
     });
 
+    jQuery('.images-wall .item').each(function(i, item) {
+        var checkbox = jQuery(item).find('.checkbox')[0];
+        checkbox = jQuery(checkbox);
+        jQuery(item).find('.tag-inputs input[type=checkbox]').each(function(i, el) {
+            jQuery(el).on('change', function(event) {
+                checkbox.prop('checked', true);
+            });
+        });
+    });
+
 
     // dynamic-height
    /* $$('.js-dynamic-height').each(function(thumb) {

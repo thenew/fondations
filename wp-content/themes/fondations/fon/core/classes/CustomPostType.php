@@ -108,7 +108,7 @@ class Custom_Post_Type extends Fon_Base_Class
                     // Capitilize the words and make it plural
                     $name = ucwords( str_replace( '_', ' ', $name ) );
                 }
-                $plural   = $name . 's';
+                $plural = ( isset( $taxonomy_labels['name'] ) && ! empty( $taxonomy_labels['name'] ) ) ? $taxonomy_labels['name'] : $name . 's';
 
                 // Default labels, overwrite them with the given labels.
                 $labels = array_merge(
@@ -125,7 +125,7 @@ class Custom_Post_Type extends Fon_Base_Class
                         'update_item'       => __( 'Update' ) . ' ' . $name,
                         'add_new_item'      => __( 'Add New' ) . ' ' . $name,
                         'new_item_name'     => __( 'New' ) . ' ' . $name . ' ' . __('Name' ),
-                        'menu_name'         => __( $name ),
+                        'menu_name'         => __( $plural ),
                     ),
 
                     // Given labels

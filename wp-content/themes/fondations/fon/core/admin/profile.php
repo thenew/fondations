@@ -55,7 +55,8 @@ function fon_profile_page() {
 
                         // iterate trough values of option
                         foreach ( $values as $value ) {
-                            $value = ( empty( $value ) && isset( $field['default'] ) && ! empty( $field['default'] ) ) ? $field['default'] : $value;
+                            if( ! isset( $field['default'] ) ) $field['default'] = '';
+                            $value = ( empty( $value ) && ! empty( $field['default'] ) ) ? $field['default'] : $value;
                             $field_count++;
                             if ( $field_count > 1 ) {
                                 $field_id .= '_' . $field_count;

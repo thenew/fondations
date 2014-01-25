@@ -68,11 +68,38 @@
     border: 0;
 }
 
-.images-wall .item .tag-checkbox {
+.images-wall .item .tag-inputs {
     position: absolute;
     z-index: 6;
     bottom: 0;
     left: 0;
+    font-size: 0;
+}
+
+.images-wall .item .tag-inputs .box {
+    position: relative;
+    display: inline-block;
+}
+
+.images-wall .item .tag-inputs input {
+    position: relative;
+    z-index: 2;
+}
+
+.images-wall .item .tag-inputs .label {
+    content: attr('value');
+    position: absolute;
+    z-index: 1;
+    bottom: 16px;
+    left: -4px;
+    display: block;
+    padding: 0 4px 2px 18px;
+    color: #fff;
+    font-size: 10px;
+    line-height: 1;
+    background-color: #333;
+    -webkit-transform: rotate(-60deg);
+    transform: rotate(60deg);
 }
 
 .images-wall .item .overlay {

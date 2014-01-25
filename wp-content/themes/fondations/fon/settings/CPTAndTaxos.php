@@ -14,7 +14,8 @@ $attachment->add_taxonomy( 'attachment_tag',
         'hierarchical' => false
     ),
     array(
-        'singular_name' => 'Image tag'
+        'name' => 'tags image',
+        'singular_name' => 'tag image'
     )
 );
 
@@ -25,6 +26,7 @@ $game = new Custom_Post_Type( 'Game', array(
 $game->add_taxonomy( 'genre' );
 $game->add_taxonomy( 'theme' );
 $game->add_taxonomy( 'support' );
+$game->add_taxonomy( 'type' ); // adaptation, remake, réédition
 $game->add_taxonomy( 'post_tag' );
 
 // Person

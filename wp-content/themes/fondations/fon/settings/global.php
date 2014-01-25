@@ -23,24 +23,3 @@ function fon_profile_custom_fields( $fields ) {
     $fields = array_merge( $fields, $custom_fields );
     return $fields;
 }
-
-
-// Attachments custom fields
-add_action( 'fon_attachment_fields', 'fon_attachment_custom_fields' );
-function fon_attachment_custom_fields( $fields ) {
-
-    $custom_fields = array(
-        'credit_text' => array(
-            'label' => __('Credit'),
-            'input' => 'text' // hidden, textarea or text
-            // 'helps' => __('The owner of the image.'),
-        ),
-        'credit_url' => array(
-            'label' => __('Credit URL'),
-            'input' => 'url'
-        )
-    );
-
-    $fields = array_merge( $fields, $custom_fields );
-    return $fields;
-}
