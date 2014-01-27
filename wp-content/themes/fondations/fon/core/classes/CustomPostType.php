@@ -31,9 +31,14 @@ class Custom_Post_Type extends Fon_Base_Class
     /* Method which registers the post type */
     public function register_post_type()
     {
-        //Capitilize the words and make it plural
-        $name   = ucwords(str_replace('_', ' ', $this->post_type_name));
-        $plural = $name . 's';
+
+        if( isset( $this->post_type_labels['singular_name'] ) && ! empty( $this->post_type_labels['singular_name'] ) ) {
+            $name = $this->post_type_labels['singular_name'];
+        } else {
+            // Capitilize the words
+            $name = ucwords( str_replace( '_', ' ', $this->post_type_name ) );
+        }
+        $plural = ( isset( $this->post_type_labels['name'] ) && ! empty( $this->post_type_labels['name'] ) ) ? $this->post_type_labels['name'] : $name . 's';
 
         // We set the default labels based on the post type name and plural. We overwrite them with the given labels.
         $labels = array_merge(
@@ -105,9 +110,11 @@ class Custom_Post_Type extends Fon_Base_Class
                 if( isset( $taxonomy_labels['singular_name'] ) && ! empty( $taxonomy_labels['singular_name'] ) ) {
                     $name = $taxonomy_labels['singular_name'];
                 } else {
-                    // Capitilize the words and make it plural
+                    // Capitilize the words
                     $name = ucwords( str_replace( '_', ' ', $name ) );
                 }
+
+                // and make it plural
                 $plural = ( isset( $taxonomy_labels['name'] ) && ! empty( $taxonomy_labels['name'] ) ) ? $taxonomy_labels['name'] : $name . 's';
 
                 // Default labels, overwrite them with the given labels.

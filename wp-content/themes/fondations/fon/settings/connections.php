@@ -19,6 +19,20 @@ function fon_register_connections() {
             // 'to_query_vars' => array( 'role' => 'editor' )
         ),
 
+        // company -> Games
+        array(
+            'name' => 'company_games',
+            'from' => 'company',
+            'to' => 'game',
+            'reciprocal' => true,
+            'fields' => array(
+                'role' => array(
+                    'title' => 'Rôle',
+                    'type' => 'select',
+                    'values' => $roles
+                )
+            )
+        ),
         // person -> Games
         array(
             'name' => 'people_games',

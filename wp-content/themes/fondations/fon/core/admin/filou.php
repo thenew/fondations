@@ -191,7 +191,8 @@ function fon_filou_parsing( $url = '', $args = array() ) {
                         <?php
                         $game_args = array(
                             'post_type' => 'game',
-                            'posts_per_page' => 5
+                            'posts_per_page' => -1,
+                            'orderby' => 'title'
                         );
                         $games = get_posts( $game_args );
                         foreach ($games as $game) {
@@ -265,8 +266,8 @@ function fon_filou_save() {
 
     if ( ! empty( $attachments_id ) ) { ?>
         <div class="updated"><ul>
+            <li>Jeu <a href="<?php echo get_admin_url() . 'post.php?post=' . $post_id . '&action=edit'; ?>"><?php echo get_the_title( $post_id ); ?></a></li>
             <?php foreach ($attachments_id as $id) { ?>
-                <li>Jeu <a href="<?php echo get_admin_url() . 'post.php?post=' . $post_id . '&action=edit'; ?>"><?php echo get_the_title( $post_id ); ?></a></li>
                 <li><a href="<?php echo get_admin_url() . 'post.php?post=' . $id . '&action=edit'; ?>"><?php echo get_the_title( $id ); ?></a></li>
             <?php } ?>
         </ul></div>
