@@ -16,6 +16,7 @@ wp-content/cache/supercache/*
 wp-content/languages/
 wp-content/themes/twentythirteen
 wp-content/themes/fondations/assets/public/*
+wp-content/plugins/acf-repeater-master/
 sitemap.xml
 sitemap.xml.gz
 readme.html

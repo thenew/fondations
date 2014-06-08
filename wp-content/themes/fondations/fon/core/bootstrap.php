@@ -24,7 +24,7 @@ define('CLASSES_URL',    TEMPLATE_URL.'/fon/core/classes');
 
 function fon_define_env_dev() {
     $url_extension = pathinfo( $_SERVER['HTTP_HOST'], PATHINFO_EXTENSION );
-    return ( WP_DEBUG || $url_extension == "dev" || $url_extension == "local" || is_preview() );
+    return ( WP_DEBUG || $url_extension == "dev" || $url_extension == "local" );
 }
 define('ENV_DEV', fon_define_env_dev());
 
