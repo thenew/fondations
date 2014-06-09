@@ -12,9 +12,9 @@ $param_404 = str_replace(array('?', '/', '=', '-'), ' ', strip_tags($_SERVER['RE
             's' => $param_404
         );
         $q_404 = new WP_Query( $args_404 );
-        if (have_posts()) : ?>
+        if ($q_404->have_posts()) : ?>
             <ul>
-                <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+                <?php while ( $q_404->have_posts() ) : $q_404->the_post(); ?>
                     <li>
                         <?php get_template_part('loop', 'short'); ?>
                     </li>

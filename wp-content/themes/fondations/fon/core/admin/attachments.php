@@ -17,6 +17,12 @@ function add_image_attachment_fields_to_edit( $form_fields, $post ) {
 
     foreach ( $fon_attachment_custom_fields as $key => $custom_field ) {
 
+        // checkbox trick
+        if( isset( $custom_field['input'] ) && 'checkbox' == $custom_field['input']  ) {
+            $custom_field['input'] = 'html';
+            $custom_field['html'] = '<input type="checkbox" value="1" id="attachments-'.$post->ID.'-'.$key.'" name="attachments['.$post->ID.']['.$key.']" />';
+        }
+
         // Default
         if( ! array_key_exists('value', $custom_field) ) {
             $custom_field['value'] = esc_attr( get_post_meta( $post->ID, $key, true ) );
@@ -24,7 +30,7 @@ function add_image_attachment_fields_to_edit( $form_fields, $post ) {
 
         $form_fields[$key] = $custom_field;
     }
-
+    // error_log(print_r($form_fields, 1));
 
     return $form_fields;
 }
@@ -42,6 +48,8 @@ add_filter("attachment_fields_to_edit", "add_image_attachment_fields_to_edit", n
  */
 function add_image_attachment_fields_to_save( $post, $attachment ) {
 
+    // error_log(print_r($attachment, 1));
+    // error_log(print_r($post, 1));
     $fon_attachment_custom_fields = apply_filters( 'fon_attachment_fields', array() );
 
     foreach ( $fon_attachment_custom_fields as $key => $custom_field ) {

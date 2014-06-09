@@ -22,6 +22,10 @@ function fon_attachment_custom_fields( $fields ) {
             'label' => __('Auteur URL'),
             'input' => 'url'
         ),
+        'fon_boolean' => array(
+            'label' => __("Custom Checkbox"),
+            'input' => 'checkbox'
+        )
     );
 
     $fields = array_merge( $fields, $custom_fields );
